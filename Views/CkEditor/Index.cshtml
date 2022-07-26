@@ -1,0 +1,35 @@
+﻿@model List<FBE.ViewModels.CkEditor.CkModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Images</title>
+    <link rel="stylesheet" href="~/css/ckeditor.css">
+</head>
+<body>
+    <div class="cscontainer">
+        <div class="cssidebar">
+            <a class="sidebarbtn">
+                <h3>Duyuru Resimleri</h3>
+            </a>
+            <a class="sidebarbtn">
+                <h3>İçerik Sayfası Resimleri</h3>
+            </a>
+            <a class="sidebarbtn">
+                <h3>Slayt Resimleri</h3>
+            </a>
+        </div>
+        <div class="csimages">
+            @foreach (var item in Model)
+            {
+                <div><a><img class="csimage" src="@item.Url" alt="@item.Title" /></a></div>
+            }
+        </div>
+    </div>
+</body>
+</html>

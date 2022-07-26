@@ -1,0 +1,100 @@
+﻿.body {
+    font: 13px/23px Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    word-wrap: break-word;
+}
+
+
+.col-md-8 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+@media (min-width: 992px) {
+    .col-md-8 {
+        width: 66.66666667%;
+        float: left;
+    }
+}
+
+.blog-post-container {
+    margin-bottom: 65px;
+    margin-top: 10px;
+}
+
+.blog-post-inner {
+    text-align: justify;
+    background-color: white;
+    padding: 10px 20px 10px 20px;
+}
+
+.blog-post-inner .blog-post-title {
+    margin: 10px 0 20px 0;
+    }
+
+h3 {
+    color: #282a2c;
+    font-family: 'Open Sans', serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+    height: 0;
+    box-sizing: content-box;
+}
+
+.PersonelGrid .mix {
+    text-align: left;
+    width: 32%;
+    text-align: center;
+    float: left;
+    margin: 10px 0 0 8px;
+    height: 413px;
+    background-color: #EBEBEB;
+    padding-top: 10px;
+}
+
+    .PersonelGrid .mix .gallery-item img {
+        border-radius: 10px;
+        margin-right: 100%;
+    }
+
+img {
+    vertical-align: middle;
+}
+
+.col-md-4 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.gallery-content {
+    padding: 8px 8px;
+    min-height: 60px;
+    text-align: center;
+    height: 260px;
+}
+
+.PersonelGrid .unvanAdSoyad {
+    background: #777777;
+    color: #fefefe;
+    width: 99%;
+    padding: 5px;
+}
+.PersonelGrid .bolum {
+    background: #999999;
+    color: #fefefe;
+    width: 99%;
+    padding: 3px;
+    margin-bottom: 0px;
+}

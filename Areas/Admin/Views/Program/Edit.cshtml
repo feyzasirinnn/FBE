@@ -1,0 +1,192 @@
+﻿@model FBE.ViewModels.Program.ProgramEdit
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Program" asp-action="Index">Programlar</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Prog_Ad</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            <i class="fa fa-edit fa-lg text-info"></i> @ViewBag.Title
+        </h4>
+    </div>
+
+    <div class="card-body row">
+
+        <div class="col-12">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary()
+                <input type="hidden" asp-for="Prog_Id"/>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Program Adı</span>
+                    </div>
+                    <input asp-for="Prog_Ad" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Program Adı(İngilizce)</span>
+                    </div>
+                    <input asp-for="Prog_Ad_En" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Program Adı(Arapça)</span>
+                    </div>
+                    <input asp-for="Prog_Ad_Ar" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" asp-for="ProgramDuzey"></label>
+                    <select class="form-control" asp-for="ProgramDuzeyID">
+                        @foreach (var item in ViewBag.Duzeyler)
+                        {
+                            @if (Model.ProgramDuzeyID == item.Prog_Duzey_Id)
+                            {
+                                <option selected value="@item.Prog_Duzey_Id">@item.Prog_Duzey</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Prog_Duzey_Id">@item.Prog_Duzey</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" asp-for="EABD"></label>
+                    <select class="form-control" id="eabdSelect1" asp-for="EABD_ID">
+                        @foreach (var item in ViewBag.EABDs)
+                        {
+                            @if (Model.EABD_ID == item.EABD_Id)
+                            {
+                                <option selected value="@item.EABD_Id">@item.EABD_Ad_Tr</option>
+                            }
+                            else
+                            {
+                                <option value="@item.EABD_Id">@item.EABD_Ad_Tr</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between w-100 my-2" style="height:250px">
+                    <div id="kadro2" class="table-responsive w-50">
+                        <h4 class="text-center border-bottom">Programın Kadrosu</h4>
+                        @*@{
+                            var index = 0;
+                            foreach (var item in ViewBag.Kadro)
+                            {
+                                <input value="@item.Ad @item.Soyad" type="text" readonly class="form-control text-center my-2" />
+                                <input value="@item.Sicil_No" type="hidden" readonly class="form-control text-center my-2" name="Akademik_Kadro[@index]" />
+                                index++;
+                            }
+                        }*@
+
+                    </div>
+                    <div class="w-50 table-responsive" id="kadro1">
+                        <h4 class="text-center border-bottom">Tüm Kadro</h4>
+                        @*@foreach (var item in ViewBag.TumKadro)
+                        {
+                            if (!ViewBag.Kadro.Contains(item))
+                            {
+                                <input id="@item.Sicil_No" value="@item.Ad @item.Soyad" type="text" readonly class="form-control text-center my-2" />
+                            }
+                        }*@
+                    </div>
+                </div>
+                <div class="float-right">
+                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                        <i class="fa fa-arrow-left"></i>
+                        İptal
+                    </a>
+                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                        <i class="fa fa-plus"></i>
+                        Kaydet
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var kadro1 = $('#kadro1')
+        var kadro2 = $('#kadro2')
+        var i = 0;
+        var urlstring = window.location.href;
+        var url = new URL(urlstring);
+        var programid = url.searchParams.get('id');
+        $.get("/Admin/Program/ProgramKadro?program=" + programid, function (result) {
+            $.each(result.data, function (index, res) {
+                console.log(res, index)
+                if (res != null) {
+                    kadro2.append('<input value="' + res.Ad + res.Soyad + '" type="text" readonly class="form-control text-center my-2" />');
+                    kadro2.append('<input value="' + res.Sicil_No + '" type="hidden" readonly class="form-control text-center my-2" id="Akademik_Kadro_' + index + '__Name" name="Akademik_Kadro[' + index + ']" />')
+                }
+            })
+            getKadro();
+        });
+        kadro1.mouseenter(function () {
+            kadro1 = $('#kadro1')
+            kadro1.children().unbind('click').click(function () {
+                kadro2.append('<input value="' + this.value + '" type="text" readonly class="form-control text-center my-2" />')
+                kadro2.append('<input value="' + this.id + '" type="hidden" readonly class="form-control text-center my-2" id="Akademik_Kadro_' + i + '__Name" name="Akademik_Kadro[' + i + ']" />')
+                this.remove();
+                i++;
+            })
+        });
+        kadro2.mouseenter(function () {
+            kadro2 = $('#kadro2')
+            kadro2.children().unbind('click').click(function () {
+                kadro1.append('<input id="' + this.nextSibling.value + '" value="' + this.value + '" type="text" readonly class="form-control text-center my-2" />');
+                this.nextSibling.remove();
+                this.remove();
+            })
+        });
+        $('#eabdSelect1').change(getKadro);
+    });
+
+
+    function getKadro() {
+        var kadroasd = $('#kadro2').children().filter(function (index, result) {
+            if ($(result).attr('type') == 'hidden') {
+                console.log('res',result)
+                return result;
+            }
+        });
+        var id = $('#eabdSelect1').val();
+        if (id != 0) {
+            $.ajax({
+                url: '/Admin/Program/KadroWithEabd',
+                data: { eabd: id },
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    kadro1 = $('#kadro1');
+                    kadro1.empty();
+                    kadro1.append('<h4 class="text-center border-bottom">Tüm Kadro</h4>');
+                    $.each(data.data, function (index, result) {
+                        var bool = true;
+                        $.each(kadroasd, function (i, r) {
+                            var element = $(r);
+                            if (element.val() == result.Sicil_No) {
+                                bool = false;
+                            }
+                        })
+                        if (bool) {
+                            kadro1.append('<input id="' + result.Sicil_No + '" value="' + result.Ad + ' ' + result.Soyad + '" type="text" readonly class="form-control text-center my-2" />');
+                        }
+                    });
+                }
+            });
+        }
+    }
+</script>
+

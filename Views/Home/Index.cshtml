@@ -1,0 +1,86 @@
+﻿
+@{ ViewData["Title"] = "Ana Sayfa"; }
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-8 col-sm-12">
+        @await Component.InvokeAsync("Slider")
+    </div>
+    <div class="col-lg-4 col-sm-12">
+        @await Component.InvokeAsync("ImportantAnnounce")
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row" style="margin-top:15px">
+        <div class="col-12">
+            @await Component.InvokeAsync("Properties")
+        </div>
+    </div>
+</div>
+<div class="row  ">
+    <div class="col-xs-12 col-md-12"> @await Component.InvokeAsync("AnnouncementList")</div>
+</div>
+
+
+
+<div class="modal" id="Modal1" style="display:block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <table class="modal-title">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.announce)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (@item.Popup == true)
+                                        {
+                                            <span>@item.Title</span>}
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-body">
+                    <table>
+                        <tbody>
+                            @foreach (var item in ViewBag.announce)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (@item.Popup == true)
+                                        {
+                                            <span>@item.Description</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class="col-md-12" id="close_window" style="text-align: center; margin-bottom: 25px; ">
+                   <a href="https://localhost:44340/Announcement/Details/15" target="_blank">
+                        <input type="button" class="btn-circle" style="background-color: #6a80a9; border-radius: 5px;font-size:15px; " value="İncele">
+                    </a>
+
+                <button data-dismiss="modal" style="position: relative; bottom: 165px; left: 220px; border: 1px solid #6a80a9; background-color: #6a80a9; border-radius: 25px; width: 30px; height: 30px; ">X</button>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript"> 
+    $(document).ready(function (){
+        $('#Modal1').modal('show');
+    }); 
+</script>

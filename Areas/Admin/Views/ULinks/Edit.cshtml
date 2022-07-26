@@ -1,0 +1,66 @@
+﻿@model UsefulLinkEdit
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="ULinks" asp-action="Index">Faydalı Linkler</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            <i class="fa fa-edit fa-lg text-info"></i> @ViewBag.Title
+        </h4>
+    </div>
+    <div class="card-body row">
+
+        <div class="col-xs-12 col-lg-9">
+            @using (Html.BeginForm())
+            {
+                @*<input type="hidden" asp-for="Id" />*@
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+              
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Başlık</span>
+                    </div>
+                    <input asp-for="Title" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    @*<input asp-for="Title" placeholder="Slayt Başlığı" />*@
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Yönlendirme Linki</span>
+                    </div>
+                    <input asp-for="Link" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Aktif mi?</span>
+                    </div>
+                    <input asp-for="Enable" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <!--İPTAL-->
+                <div class="float-right">
+                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                        <i class="fa fa-arrow-left"></i>
+                        İptal
+                    </a>
+
+                    <!--EKLE-->
+                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                        <i class="fa fa-plus"></i>
+                        Kaydet
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,45 @@
+﻿@model AnnounceDetails
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{ ViewBag.Title = Model.Title; }
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb fluid breadcrumb-bg border-bottom">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">@localizer["Ana Sayfa"]</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Announcement" asp-action="Index">@localizer["Duyurular"]</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@localizer["Duyuru"]</li>
+    </ol>
+</nav>
+<div class="row">
+    <div class="col-lg-3">
+        <aside class="sidebar ">
+            <h5 class="font-weight-bold pt-4 stage-margin-lg">@localizer["Kategoriler"]</h5>
+            <ul class="nav nav-list flex-column mb-5">
+                <li class="nav-item"><a class="nav-link" asp-controller="ImportantAnnounce" asp-action="Index">@localizer["Önemli Duyurular"]</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="Announcement" asp-action="Index">@localizer["Duyurular"]</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="News" asp-action="Index">@localizer["Haberler ve Etkinlikler"]</a></li>
+            </ul>
+        </aside>
+    </div>
+    <div class="col-lg-9">
+        <div class="card">
+            <div class="card-body">
+                @if (ViewBag.culture == "tr")
+                {
+                    <h4>@Model.Title</h4>
+                    <br />
+                    <h6>@Html.Raw(Model.Description)</h6>
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(Model.TitleEn) && !string.IsNullOrEmpty(Model.DescriptionEn))
+                    {
+                        <h4>@Model.TitleEn</h4>
+                        <br />
+                        <h6>@Html.Raw(Model.DescriptionEn)</h6>
+                    }
+                }
+
+                <p class="float-lg-right" style="font:italic">@Model.Date.ToString("dddd, dd MMMM yyyy")</p>
+            </div>
+        </div>
+    </div>
+</div>

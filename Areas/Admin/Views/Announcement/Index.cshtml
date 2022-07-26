@@ -1,0 +1,149 @@
+﻿@model AnnounceIndex
+@{
+    ViewBag.Title = "Duyurular";
+}
+
+<div class="card-title text-center">
+    <h3><strong>Duyurular</strong></h3>
+</div>
+<form method="post">
+    <div class="row">
+
+        <div class="col-12">
+            <div class="float-right">
+                <a asp-area="admin" asp-controller="Announcement" asp-action="Create">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-xs-down">Yeni Duyuru</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Duyurular</li>
+        </ol>
+    </nav>
+
+    @*<div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">Fotoğraf</th>
+                    <th scope="col">Dosya </th>
+                    <th scope="col">Tarih</th>
+                    <th scope="col">Düzenle</th>
+                    <th scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody id="announcementTable">
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>
+                        @{ if (ViewBag.images.Count > 0 && ViewBag.images != null)
+                            {
+                                foreach (var image in ViewBag.images)
+                                {
+                                    if (image.AnnounceImage.Id == item.Id)
+                                    {
+                <img style="width:60px;border-radius:50%" src="@image.ImageUrl" /> }
+        }
+    } }
+                    </td>
+                    <td>
+                        @{ if (ViewBag.files.Count > 0 && ViewBag.files != null)
+                            {
+                                foreach (var file in ViewBag.files)
+                                {
+                                    if (file.AnnounceFile.Id == item.Id)
+                                    {
+                @file.FileTitle }
+        }
+    } }
+                    </td>
+                    <td>@item.EGorevId.EGorev_Name</td>
+                    <td><a class="btn btn-primary" asp-area="Admin" asp-controller="Announcement" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a></td>
+                    <td><a class="btn btn-danger" asp-area="Admin" asp-controller="Announcement" asp-action="Delete" asp-route-id="@item.Id">Sil</a></td>
+                </tr>}
+                }
+            </tbody>
+        </table>
+    </div>*@
+
+
+    <div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Başlık</th>
+                        <th scope="col">Tarih</th>
+                        <th scope="col">Fotoğraf</th>
+                        <th scope="col">Dosya</th>
+                        <th scope="col">Popup mı?</th>
+                        <th scope="col">Düzenle</th>
+                        <th scope="col">Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Announcements)
+                    {
+                <tr>
+                    <th>
+                        <a asp-area="admin" asp-controller="Announcement" asp-action="Edit" asp-route-id="@item.Id">
+                            @item.Title
+                        </a>
+                    </th>
+                    <td>@item.StartDate</td>
+
+                
+                    <th>
+                        @{ if (ViewBag.images.Count > 0 && ViewBag.images != null)
+                            {
+                                foreach (var image in ViewBag.images)
+                                {
+                                    if (image.AnnounceImage.Id == item.Id)
+                                    {
+                <img style="width:60px;border-radius:50%" src="@image.ImageUrl" /> }
+        }
+    } }
+                    </th>
+                
+                
+                    <th>
+                        @{ if (ViewBag.files.Count > 0 && ViewBag.files != null)
+                            {
+                                foreach (var file in ViewBag.files)
+                                {
+                                    if (file.AnnounceFile.Id == item.Id)
+                                    {
+                @file.FileTitle }
+        }
+    } }
+                    </th>
+                    <td>
+                        @if (@item.Popup == true)
+                        {
+                    <span>Evet</span> }
+                else
+                {
+                    <span>Hayır</span>}
+                    </td>
+                <td><a class="btn btn-primary" asp-area="Admin" asp-controller="Announcement" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a></td>
+                <td><a class="btn btn-danger" asp-area="Admin" asp-controller="Announcement" asp-action="Delete" asp-route-id="@item.Id">Sil</a></td>
+                </tr>}
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+</form>

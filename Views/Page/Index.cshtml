@@ -1,0 +1,60 @@
+﻿@model Page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{ViewData["Title"] = Model.Title;}
+
+<div class="container d-flex flex-column align-items-center">
+    <h1>
+        @if (ViewBag.culture == "tr")
+        {
+            @Model.Title
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(Model.TitleEng))
+            {
+                @Model.TitleEng
+            }
+            else
+            {
+                @Model.Title
+            }
+        }
+</h1>
+    <div class="col-xs-12 col-lg-9">
+        @if (ViewBag.culture == "tr")
+        {
+            <h6>@Html.Raw(Model.Description)</h6>
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(Model.Description))
+            {
+                <h6>@Html.Raw(Model.DescriptionEng)</h6>
+            }
+            else
+            {
+                <h6>No Info</h6>
+            }
+        }
+
+    </div>
+@if (Model.Files.Count > 0)
+{
+    <div class="col-xs-12 col-lg-9">
+        <div>
+            <h4>@localizer["Dosyalar"]</h4>
+        </div>
+        <div>
+            <div class="row">
+                <ul>
+                    @foreach (var item in Model.Files)
+                    {
+                        <li><a asp-action="Download" asp-route-url="@item.FileUrl" asp-route-name="@item.FileTitle">@item.FileTitle</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+</div>
+

@@ -1,0 +1,72 @@
+﻿@model FBE.ViewModels.EYKUyeler.EYKUyelerCreate
+@{ ViewData["Title"] = "Create"; }
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="EYKUyeler" asp-action="Index">Enstitü Üyeleri</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Yeni Üye</li>
+    </ol>
+</nav>
+
+<div class="card mt-2">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            Üyeler
+        </h4>
+    </div>
+    <div class="card-body">
+        <form class="form" id="myForm" method="post" asp-action="Create" asp-controller="EYKUyeler">
+
+            <select id="eabdSelect" asp-for="EYKUyelerEABD" class="form-control w-75">
+                
+                    <option value="0">--Seçiniz--</option>
+                    @if (ViewBag.EABD != null)
+                    {
+                        foreach (var item in ViewBag.EABD)
+                        {
+            <option value="@item.EABD_Id">@item.EABD_Ad_Tr</option>}
+                        }
+                </select>
+            
+            <div id="SlideUrl2" class="input-group mb-3" style="display:none">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Fotoğraf Url'si</span>
+                </div>
+                <select class="form-control" asp-for="EYKUyelerKadro">
+                    @foreach (var item in ViewBag.Kadro)
+                    {
+        <option value="@item.Sicil_No">@item.Ad</option>}
+                </select>
+            </div>
+
+
+
+            <div class="float-right">
+                <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                    <i class="fa fa-arrow-left"></i>
+                    İptal
+                </a>
+                <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                    <i class="fa fa-plus"></i>
+                    Ekle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $('#eabdSelect').change(function () {
+            var value = $('#eabdSelect').val()
+            if (value == 0) {
+                $('#SlideUrl2').hide()
+                $('#SlideUrl1').show()
+            } else {
+                $('#SlideUrl1').hide()
+                $('#SlideUrl2').show()
+            }
+        })
+    })
+</script>

@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Menu>
+
+
+<ul class="nav nav-pills" id="mainNav">
+    @foreach (var item in Model)
+    {
+        @if (ViewBag.culture == "tr")
+            {
+            <li class="nav-item dropdown">
+            <a class="nav-link" href="@item.MenuURL" target="@item.MenuTarget">@item.MenuTitle</a>
+            @if(ViewBag.childs.Count > 0)
+                    {
+                        @foreach (var childs in ViewBag.childs)
+                    {
+                        @if (childs.MenuChild == item.MenuId)
+                        {
+                            <ul class="dropdown-menu">
+                                @foreach (var childs1 in ViewBag.childs)
+                                {
+                                    if (childs1.MenuChild == item.MenuId)
+                                    {
+                                        if (ViewBag.childs2.Count > 0)
+                                        {
+                                            foreach (var childs2 in ViewBag.childs2)
+                                            {
+                                                if (childs2.MenuChild == childs1.MenuId)
+                                                {
+                                                    <li class="dropdown-submenu">
+                                                        <a class="dropdown-item" target="@childs1.MenuTarget" href="@childs1.MenuURL">@childs1.MenuTitle</a>
+                                                        <ul class="dropdown-menu">
+                                                        @foreach (var childs3 in ViewBag.childs2)
+                                                        {
+                                                            if (childs3.MenuChild == childs1.MenuId)
+                                                            {
+                                                            <li>
+                                                                <a class="dropdown-item" target="@childs3.MenuTarget" href="@childs3.MenuURL">@childs3.MenuTitle</a>
+                                                            </li>
+                                                            }
+                                                        }
+                                                        </ul>
+                                                    </li>
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <a class="dropdown-item" target="@childs1.MenuTarget" href="@childs1.MenuURL">@childs1.MenuTitle</a>
+                                                        <ul class="dropdown-menu">
+                                                        @foreach (var childs3 in ViewBag.childs2)
+                                                        {
+                                                            if (childs3.MenuChild == childs1.MenuId)
+                                                            {
+                                                            <li>
+                                                                <a class="dropdown-item" target="@childs3.MenuTarget" href="@childs3.MenuURL">@childs3.MenuTitle</a>
+                                                            </li>
+                                                            }
+                                                        }
+                                                        </ul>
+                                                    </li>
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                        <a class="dropdown-item" target="@childs1.MenuTarget" href="@childs1.MenuURL">@childs1.MenuTitle</a>
+                                                    </li>
+                                        }
+                                        
+
+                                    }
+                                }
+                            </ul>
+                            break;
+                        }
+                    }
+                    }
+        </li>
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(item.MenuTitleEn))
+            {
+                <li class="nav-item dropdown">
+            <a class="nav-link" href="@item.MenuURL" target="@item.MenuTarget">@item.MenuTitleEn</a>
+            @if(ViewBag.childs.Count > 0)
+                    {
+                        @foreach (var childs in ViewBag.childs)
+                    {
+                        @if (childs.MenuChild == item.MenuId)
+                        {
+                            <ul class="dropdown-menu">
+                                @foreach (var childs1 in ViewBag.childs)
+                                {
+                                    if (childs1.MenuChild == item.MenuId)
+                                    {
+                                        if (ViewBag.childs2.Count > 0)
+                                        {
+                                            foreach (var childs2 in ViewBag.childs2)
+                                            {
+                                                if (childs2.MenuChild == childs1.MenuId)
+                                                {
+                                                    <li class="dropdown-submenu">
+                                                        <a class="dropdown-item" target="@childs1.MenuTarget" href="@childs1.MenuURL">@childs1.MenuTitleEn</a>
+                                                        <ul class="dropdown-menu">
+                                                        @foreach (var childs3 in ViewBag.childs2)
+                                                        {
+                                                            if (childs3.MenuChild == childs1.MenuId)
+                                                            {
+                                                            <li>
+                                                                <a class="dropdown-item" target="@childs3.MenuTarget" href="@childs3.MenuURL">@childs3.MenuTitleEn</a>
+                                                            </li>
+                                                            }
+                                                        }
+                                                        </ul>
+                                                    </li>
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <a class="dropdown-item" target="@childs1.MenuTarget" href="@childs1.MenuURL">@childs1.MenuTitleEn</a>
+                                                        <ul class="dropdown-menu">
+                                                        @foreach (var childs3 in ViewBag.childs2)
+                                                        {
+                                                            if (childs3.MenuChild == childs1.MenuId)
+                                                            {
+                                                            <li>
+                                                                <a class="dropdown-item" target="@childs3.MenuTarget" href="@childs3.MenuURL">@childs3.MenuTitleEn</a>
+                                                            </li>
+                                                            }
+                                                        }
+                                                        </ul>
+                                                    </li>
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                        <a class="dropdown-item" target="@childs1.MenuTarget" href="@childs1.MenuURL">@childs1.MenuTitleEn</a>
+                                                    </li>
+                                        }
+                                        
+
+                                    }
+                                }
+                            </ul>
+                            break;
+                        }
+                    }
+                    }
+        </li>
+                }
+            }
+
+        }
+    <li class="nav-item d-flex align-items-center">
+        <div class="nav-link"><partial name="_Culture" /></div>
+    </li>
+</ul>

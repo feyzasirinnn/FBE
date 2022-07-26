@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/page.css">
+</head>
+
+<body>
+
+    <div class="container">
+    <div class="page-title clearfix"> 
+        <div class="row">
+        <div class="col-md-12">
+            <h6><a href="https://fbe.sakarya.edu.tr/tr">Ana Sayfa</a></h6> 
+            <h6><a href="https://fbe.sakarya.edu.tr/tr/personel-liste/7767/24690/enstitu">Enstitü</a></h6> 
+            <h6><span class="page-active">İdari Yapı</span></h6> 
+            </div> 
+            </div>
+        </div> 
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="widget-main" style="background-color: white; font: 13px/23px Helvetica, Arial, sans-serif; margin-top: 10px;">
+                    <div class="widget-main-title" style="padding: 10px 20px 10px 20px; border-bottom: 1px solid; border-color: #d6dce1 !important;">
+                        <a href="https://fbe.sakarya.edu.tr/tr/personel-liste/7767/24690/enstitu">
+                            <h4 class="widget-title" style="margin: 0; text-transform: uppercase; font-size: 12px; font-weight: 700;">Enstitü</h4>
+                        </a>
+                    </div>
+                    <div class="widget-inner" style="padding: 0px 20px 6px 20px;">
+                        <div class="blog-categories" style="padding: 0 20px;">
+                            <div class="row" style=" margin-right: -5px; margin-left: -5px;">
+                                <ul class="col-md-12">
+                                    <li><a href="https://fbe.sakarya.edu.tr/tr/icerik/7766/22548/tarihce">Tarihçe</a></li>
+                                    <li><a href="https://localhost:44340/page/index/3">Misyon Vizyon</a></li>
+                                    <li><a href="https://fbe.sakarya.edu.tr/tr/personel-liste/7994/24691/idari-yapi">İdari Yapı</a></li>
+                                    <li><a href="https://fbe.sakarya.edu.tr/tr/personel-liste/7991/24690/personel">Personel</a></li>
+                                    <li><a href="https://fbe.sakarya.edu.tr/tr/personel-liste/7989/24677/enstitu-yonetim-kurulu">Enstitü Yönetim Kurulu</a></li>
+                                    <li><a href="https://fbe.sakarya.edu.tr/tr/personel-liste/8242/26031/enstitu-kurulu">Enstitü Kurulu</a></li>
+                                    <li><a href="https://fbe.sakarya.edu.tr/tr/icerik/14501/71802/uygulama-esaslari">Uygulama Esasları</a></li>
+                                    <li><a href="">Yönetmelik ve Senato Esasları</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="blog-post-container">
+                    <div class="blog-post-inner">
+                        <h3 blog-post-title> Akademik Personel </h3>
+                        <hr style=" margin-top: 20px; margin-bottom: 20px; border: 0; border-top: 1px solid #eee;" />
+                        <div class="row PersonelGrid" id="PersonelGrid">
+                            <div class="clearfix">
+                                <div class="col-md-4 mix Fakulte-254 Bolum-290 AnaBilimDali-1394">
+                                    <div class="gallery-item" style="display:flex;">
+                                        @foreach (var item in ViewBag.URL)
+                                        {
+                                            <img width="100" height="120" src="@item.ImageUrl" class="attachment-gallery-thumb wp-post-image" alt="#" />
+                                        }
+
+                                        <div class="gallery-content">
+                                            <h5 class="gallery-title unvanAdSoyad">
+                                            </h5> <p class="bolum"></p>
+                                            <a href="#"></a>
+                                            <a href="#"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="col-md-8" style="width: 66.66666667%; margin-top: 10px; ">
+                    <div class="blog-post-container" style="margin-bottom: 65px;">
+                        <div class="blog-post-inner" style=" text-align: justify; background-color: white; padding: 10px 20px 10px 20px;">
+                            <h3 class="blog-post-title" style="margin: 10px 0 20px 0; color: #282a2c; font-family: 'Open Sans', serif; font-size: 24px; font-weight: 500; line-height: 1.1;"> Akademik Personel </h3>
+                            <hr style=" margin-top: 20px; margin-bottom: 20px; border: 0; border-top: 1px solid #eee;">
+                            <div class="row PersonelGrid" style=" margin-right: -5px; margin-left: -5px; text-align: left;" id="PersonelGrid">
+                                <div class="clearfix">
+                                    <div class="col-md-4 mix Fakulte-254 Bolum-290 AnaBilimDali-1394" >
+                                        <div class="gallery-item">
+                                            @foreach (var item in ViewBag.URL)
+                                            {
+                                                <img width="100" height="120" src="@item.ImageUrl" class="attachment-gallery-thumb wp-post-image" alt="#">
+                                            }
+
+                                            <div class="gallery-content">
+                                                <h5 class="gallery-title unvanAdSoyad">
+                                                </h5> <p class="bolum">Makine Mühendisliği Bölümü</p>
+                                                <a href="https://hyas.sakarya.edu.tr">hyas.sakarya.edu.tr</a>
+                                                <a href="mailto:hyas@sakarya.edu.tr">hyas@sakarya.edu.tr</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>*@
+
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+﻿@model ProgramView
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{ ViewData["Title"] = "Index"; }
+<script src="~/js/site.js"></script>
+<div class="container d-flex flex-column align-items-center">
+    <h1>@localizer["Programlar"]</h1>
+    <div class="col-xs-12 col-lg-9" >
+        <div class="form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">@localizer["Anabilim Dalı"]</span>
+            </div >
+            @if (ViewBag.culture == "tr")
+            {
+    @Html.DropDownListFor(m => m.EABD_Id, new SelectList(Model.EABD, "EABD_Id", "EABD_Ad_Tr"), "--Seçiniz--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.EABD_Id) }
+                else
+                {
+    @Html.DropDownListFor(m => m.EABD_Id, new SelectList(Model.EABD, "EABD_Id", "EABD_Ad_En"), "--Choose--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.EABD_Id)}
+
+
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">@localizer["Programlar"]</span>
+            </div>
+            <select id="Prog_Id" class="form-control">
+                <option value="0">@localizer["--Seçiniz--"]</option>
+                @foreach (var item in Model.Programs)
+                {
+                    if (ViewBag.culture == "tr")
+                    {
+    <option value="@item.Prog_Id">
+        @item.Prog_Ad - @item.Program_Duzey.Prog_Duzey
+    </option> }
+                    else
+                    {
+    <option value="@item.Prog_Id">
+        @item.Prog_Ad_En - @item.Program_Duzey.Prog_Duzey_En
+    </option>}
+                }
+            </select>
+
+            <button class="btn btn-primary my-3" id="dtyBtn">@localizer["Detayları Göster"]</button>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="d-flex justify-content-center row ml-5 pl-5">
+                    <div id="prog-table" style="display:none">
+                        <hr />
+                        <h1 class="col text-danger" id="progAdTr">@localizer["Program Adı"]</h1>
+                        <h3 class="col" id="progAdEn">@localizer["Program Adı İngilizce"]</h3>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>@localizer["Program Düzeyi:"]</th>
+                                <td id="progDzy">Program Düzeyi</td>
+                            </tr>
+                            <tr>
+                                <th>@localizer["EABD:"]</th>
+                                <td id="progEABD">EABD</td>
+                            </tr>
+                            <tr>
+                                <th>@localizer["EABD Başkanı:"]</th>
+                                <td id="progBaskan">EABD Başkanı</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table id="titletable" class="table table-bordered" style="display:none">
+                            <thead>
+                                <tr>
+                                    <th class="info-tab-button custom-primary-hover cur-pointer" onclick="">@localizer["Program Bilgisi"]</th>
+                                    <th class="staff-tab-button custom-primary-hover cur-pointer" onclick="">@localizer["Akademik Kadro"]</th>
+                                    <th id="link1" class="courses-tab-button custom-primary-hover cur-pointer" onclick="" >@localizer["Dersler"]</th>
+                                    <th id="link" class="courses-tab-button custom-primary-hover cur-pointer" onclick="">@localizer["Ders Programları"]</th>
+                                    <th class="admissions-tab-button custom-primary-hover cur-pointer" onclick="">@localizer["Başvuru Koşulları ve Kontenjanlar"]</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div id="info-content" class="tabcontent"></div>
+                        <div id="staff-content" class="tabcontent"></div>
+
+
+
+                        <div id="courses-content" class="tabcontent" style="display:none">
+                          
+                        </div>
+
+
+
+                        <div id="admissions-content" class="tabcontent" style="display:none">                            
+
+                            <div id="admissions-content-area" class="d-flex w-100">
+                                <table id="basv-tr" class="w-50 table table-bordered">
+                                    <tbody>
+                                        <tr><th colspan="2"><div id="donem-yil"></div><div> Başvuru Koşulları</div></th></tr>
+                                        <tr><td>Kontenjan<span id="kontenjan" style="float: right;"></span></td></tr>
+                                        <tr><td>Yatay Geçiş Kontenjanı<span id="yatayKontenjan" style="float: right;"></span></td></tr>
+                                        <tr><td>Gerekli Lisans Ortalaması<span id="lisansOrt" style="float: right;"></span></td></tr>
+                                        <tr><td>Gerekli ALES Puanı<span id="alesPuan" style="float: right;"></span></td></tr>
+                                        <tr><td>Gerekli GRE Puanı <i style="color: #555555">(Eski Sistem)</i><span id="greEski" style="float: right;"></span></td></tr>
+                                        <tr><td>Gerekli GRE Puanı <i style="color: #555555">(Yeni Sistem)</i><span id="greYeni" style="float: right;"></span></td></tr>
+                                        <tr><td>İngilizce Yeterlik Şartları<span style="float: right;"><a id="dilSart" target="_blank" href=""><img src="" style="width: 20px; height: 20px;"></a></span></td></tr>
+                                        <tr><td><b>Kabul Edilen Programlar:</b></td></tr>
+                                        <tr><td id="kabulEdilenProg"></td></tr>
+                                    </tbody>
+                                </table>
+                                <table id="basv-yab" class="w-50 table table-bordered">
+                                    <tbody>
+                                        <tr><th colspan="2"><div id="donem-yil">2021-2022 Güz Yarıyılı </div><div> Başvuru Koşulları</div></th></tr>
+                                        <tr><td>Kontenjan<span id="kontenjan" style="float: right;">30</span></td></tr>
+                                        <tr><td>Yatay Geçiş Kontenjanı<span id="yatayKontenjan" style="float: right;">10</span></td></tr>
+                                        <tr><td>Gerekli Lisans Ortalaması<span id="lisansOrt" style="float: right;">2.3</span></td></tr>
+                                        <tr><td>Gerekli ALES Puanı<span id="alesPuan" style="float: right;">65</span></td></tr>
+                                        <tr><td>Gerekli GRE Puanı <i style="color: #555555">(Eski Sistem)</i><span id="greEski" style="float: right;">652</span></td></tr>
+                                        <tr><td>Gerekli GRE Puanı <i style="color: #555555">(Yeni Sistem)</i><span id="greYeni" style="float: right;">151</span></td></tr>
+                                        <tr><td>İngilizce Yeterlik Şartları<span style="float: right;"><a id="dilSart" target="_blank" href=""><img src="" style="width: 20px; height: 20px;"></a></span></td></tr>
+                                        <tr><td><b>Kabul Edilen Programlar:</b></td></tr>
+                                        <tr><td id="kabulEdilenProg">Yatay geçişler için temel şart, öncelikle öğrencinin Tezli YL programı için gereken temel şartları (2.30 not ort. ve 65 ALES) sağlamasıdır. </td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

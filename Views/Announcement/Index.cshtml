@@ -1,0 +1,104 @@
+﻿@model PaginatedList<Announce>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{ ViewBag.Title = "Duyurular"; }
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb fluid breadcrumb-bg border-bottom">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">@localizer["Ana Sayfa"]</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@localizer["Duyurular"]</li>
+    </ol>
+</nav>
+<div class="row">
+    <div class="col-lg-9">
+        <div class="card background-transparent">
+            <div class="card-body">
+                @foreach (var an in Model)
+                {
+                    if (ViewBag.culture == "tr")
+                    {
+                        <div class="row" style="margin:-10px">
+                        <div class="col-2">
+                            <article class="post post-large">
+                                <div class="post-date">
+                                    <img src="https://www.sakarya.edu.tr/assets/sauanasayfa2/images/sau-default.png" />
+                                    <span class="month">@an.StartDate.ToString("dd/MM/yy")</span>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-10">
+                            <div class="post-content my-2">
+                                <div class="three-dot">
+                                    <h6 class="font-weight-semibold text-3 line-height-3 mb-3">
+                                        <a asp-controller="Announcement" asp-action="Details" asp-route-id="@an.Id">
+                                            @an.Title
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(an.TitleEng))
+                        {
+                            <div class="row" style="margin:-10px">
+                        <div class="col-2">
+                            <article class="post post-large">
+                                <div class="post-date">
+                                    <img src="https://www.sakarya.edu.tr/assets/sauanasayfa2/images/sau-default.png" />
+                                    <span class="month">@an.StartDate.ToString("dd/MM/yy")</span>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-10">
+                            <div class="post-content my-2">
+                                <div class="three-dot">
+                                    <h6 class="font-weight-semibold text-3 line-height-3 mb-3">
+                                        <a asp-controller="Announcement" asp-action="Details" asp-route-id="@an.Id">
+                                            @an.TitleEng
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                        }
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <aside class="sidebar ">
+            <h5 class="font-weight-bold pt-4 stage-margin-lg">@localizer["Kategoriler"]</h5>
+            <ul class="nav nav-list flex-column mb-5">
+                <li class="nav-item"><a class="nav-link" asp-controller="Announcement" asp-action="ImportantAnnounce">@localizer["Önemli Duyurular"]</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="Announcement" asp-action="Index">@localizer["Duyurular"]</a></li>
+            </ul>
+        </aside>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        @{ var prevDisabled = !Model.PreviousPage ? "disabled " : "";
+                        var nextDisabled = !Model.NextPage ? "disabled " : ""; }
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex-1)"
+           class="btn btn-default @prevDisabled ">
+            @localizer["Önceki"]
+        </a>
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex+1)"
+           class="btn btn-default @nextDisabled ">
+            @localizer["Sonraki"]
+        </a>
+
+    </div>
+    <div class="col-3"></div>
+</div>

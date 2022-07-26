@@ -1,0 +1,61 @@
+﻿@model UsefulLinkIndex
+@{
+    ViewBag.Title = "Faydalı Linkler ";
+}
+
+<div class="card-title text-center">
+    <h3><strong>Faydalı Linkler </strong></h3>
+</div>
+<form method="post">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Faydalı Linkler </li>
+        </ol>
+    </nav>
+    <div class="card">
+        <div class="card-header text-hover-secondary">
+          
+            <div class="float-right">
+                <a asp-area="admin" asp-controller="ULinks" asp-action="Create">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-xs-down">Yeni Faydalı Link</span>
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-link active" id="nav-tr-tab" data-toggle="tab" href="#nav-tr" role="tab" aria-controls="nav-tr" aria-selected="true">Türkçe</a> 
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+
+                <div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Başlık</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.UsefulLinks )
+                            {
+                                <tr>
+                                    <th>
+                                        <a asp-area="admin" asp-controller="ULinks" asp-action="Edit" asp-route-id="@item.Id">
+                                            @item.Title
+                                        </a>
+                                    </th>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+</form>

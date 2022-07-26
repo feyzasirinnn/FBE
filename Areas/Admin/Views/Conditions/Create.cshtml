@@ -1,0 +1,261 @@
+﻿@model FBE.ViewModels.Kosul.KosulCreate
+@{ ViewData["Title"] = "Create."; }
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Conditions" asp-action="Index">Başvuru Koşulları</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Yeni Başvuru Koşulu</li>
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-center align-items-center p-2">
+    <a class="btn btn-primary text-white mr-2" id="btnKosulTr">Türk Öğrenciler</a>
+    <a class="btn btn-primary text-white ml-2" id="btnKosulEn">Yabancı Uyruklu Öğrenciler</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            <i class="fa fa-plus fa-lg text-info"></i> Yeni Başvuru Koşulu
+        </h4>
+    </div>
+    <div class="card-body row">
+        <div class="col-xs-12 col-lg-12">
+            <form method="post">
+
+                <div id="div_kosul_tr">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Program</span>
+                        </div>
+                        <select asp-for="Program_Tr" class="form-control">
+                            <option value="0">--Seçiniz--</option>
+                            @if (ViewBag.model.Count > 0)
+                            {
+                                foreach (var item in ViewBag.model)
+                                {
+                <option value="@item.Prog_Id">@item.Prog_Ad</option>
+}
+        }
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Öğretim Yılı</span>
+                        </div>
+                        <input asp-for="Ogretim_Yili_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Donem</span>
+                        </div>
+                        <input asp-for="Donem_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Kontenjan</span>
+                        </div>
+                        <input asp-for="Kontenjan_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Yatay Geçiş İçin Kontenjan</span>
+                        </div>
+                        <input asp-for="Yatay_Gec_Kontenjan_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Minimum Dil Puan</span>
+                        </div>
+                        <input asp-for="Min_Dil_Puan_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Minimum Ales Puan</span>
+                        </div>
+                        <input asp-for="Min_Ales_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Lisans Ortalaması</span>
+                        </div>
+                        <input asp-for="Lisans_Ort_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Yükesek Lisans Ortalaması</span>
+                        </div>
+                        <input asp-for="Yuksek_Lisans_Ort_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Eski GRE Puanı</span>
+                        </div>
+                        <input asp-for="GRE_Eski_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Yeni GRE Puanı</span>
+                        </div>
+                        <input asp-for="GRE_Yeni_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Dil Şartı</span>
+                        </div>
+                        <input asp-for="Dil_Sart_Tr" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Kabul Edilen Programlar</span>
+                        </div>
+                        <input asp-for="Kabul_Edilen_Program_Tr" type="text" class="form-control">
+                    </div>
+
+
+                </div>
+
+                <div id="div_kosul_yab" style="display:none">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Program</span>
+                        </div>
+                        <select asp-for="Program_En" class="form-control">
+                            <option value="0">--Seçiniz--</option>
+                            @if (ViewBag.model.Count > 0)
+                            {
+                                foreach (var item in ViewBag.model)
+                                {
+                <option value="@item.Prog_Id">@item.Prog_Ad</option>
+}
+        }
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Öğretim Yılı</span>
+                        </div>
+                        <input asp-for="Ogretim_Yili_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Dönem</span>
+                        </div>
+                        <input asp-for="Donem_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Kontenjan</span>
+                        </div>
+                        <input asp-for="Kontenjan_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Yatay Geçiş İçin Kontenjan</span>
+                        </div>
+                        <input asp-for="Yatay_Gec_Kontenjan_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Minimum Dil Puan</span>
+                        </div>
+                        <input asp-for="Min_Dil_Puan_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Minimum Ales Puan</span>
+                        </div>
+                        <input asp-for="Min_Ales_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Lisans Ortalaması</span>
+                        </div>
+                        <input asp-for="Lisans_Ort_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Yükesek Lisans Ortalaması</span>
+                        </div>
+                        <input asp-for="Yuksek_Lisans_Ort_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Eski GRE Puanı</span>
+                        </div>
+                        <input asp-for="GRE_Eski_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Yeni GRE Puanı</span>
+                        </div>
+                        <input asp-for="GRE_Yeni_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Dil Şartı</span>
+                        </div>
+                        <input asp-for="Dil_Sart_En" type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Kabul Edilen Programlar</span>
+                        </div>
+                        <input asp-for="Kabul_Edilen_Program_En" type="text" class="form-control">
+                    </div>
+
+
+                </div>
+
+
+                <div class="float-right">
+                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                        <i class="fa fa-arrow-left"></i>
+                        İptal
+                    </a>
+                    <!--EKLE-->
+                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                        <i class="fa fa-plus"></i>
+                        Ekle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#btnKosulEn').click(function () {
+            $('#div_kosul_yab').css({ display: "block" })
+            $('#div_kosul_tr').css({ display: "none" })
+        })
+        $('#btnKosulTr').click(function () {
+            $('#div_kosul_tr').css({ display: "block" })
+            $('#div_kosul_yab').css({ display: "none" })
+        })
+    })</script>
+

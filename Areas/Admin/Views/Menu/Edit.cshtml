@@ -1,0 +1,123 @@
+﻿@model MenuEdit
+
+@{
+    ViewData["Title"] = Model.MenuTitle;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Menu" asp-action="Index">Duyurular</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.MenuTitle @Model.MenuId</li>
+    </ol>
+</nav>
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            <i class="fa fa-edit fa-lg text-info"></i> @ViewBag.Title
+        </h4>
+    </div>
+
+    <div class="card-body row">
+
+        <div class="col-12">
+            
+            <form method="post" asp-route-id="@ViewBag.id">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Başlık</span>
+                    </div>
+                    <input asp-for="MenuTitle" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Başlık(İngilizce)</span>
+                    </div>
+                    <input asp-for="MenuTitleEn" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <select id="linkSelect" asp-for="SelectValue" class="form-control mb-3">
+                    <option value="0">Dış Bağlantı</option>
+                    <option value="1">İçerik Sayfası</option>
+                </select>
+                <div id="MenuUrl1" class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text " id="basic-addon3">Yönlendirme Linki</span>
+                    </div>
+                    <input asp-for="MenuURL1" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div id="MenuUrl2" class="input-group mb-3" style="display:none">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text " id="basic-addon3">Yönlendirme Linki</span>
+                    </div>
+                    <select class="form-control" asp-for="MenuURL2">
+                        @foreach (var item in ViewBag.statics)
+                        {
+                            <option value="@item.Id">@item.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text " id="basic-addon3">Yönlendirme Tipi</span>
+                    </div>
+                    <select asp-for="MenuTarget" class="form-control">
+                        <option selected="selected" value="_Self">Aynı Pencerede aç</option>
+                        <option value="_Blank">Farklı Pencerede aç</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text " id="basic-addon3">Dropdown mı</span>
+                    </div>
+                    <select asp-for="MenuChild" class="form-control">
+                        <option selected value="0"> Değil</option>
+                        @foreach (var childs in ViewBag.menus)
+                        {
+                            <option value="@childs.MenuId">@childs.MenuTitle</option>
+                        }
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Aktif mi?</span>
+                    </div>
+                    <input asp-for="MenuStatus" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div class="float-right">
+                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                        <i class="fa fa-arrow-left"></i>
+                        İptal
+                    </a>
+                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                        <i class="fa fa-plus"></i>
+                        Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+        $(function () {
+
+            $('#linkSelect').change(function () {
+                var value = $('#linkSelect').val()
+                if (value == 0) {
+                    $('#MenuUrl2').hide()
+                    $('#MenuUrl1').show()
+                } else {
+                    $('#MenuUrl1').hide()
+                    $('#MenuUrl2').show()
+                }
+            })
+        })
+    ClassicEditor
+        .create(document.querySelector('#Description'))
+        .then(editor => {
+            console.log(Description);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+</script>

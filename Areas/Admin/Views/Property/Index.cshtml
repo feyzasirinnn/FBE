@@ -1,0 +1,58 @@
+﻿@model PropertyIndex
+@{
+    ViewBag.Title = "Kartlar ";
+}
+
+<div class="card-title text-center">
+    <h3><strong>Kartlar</strong></h3>
+</div>
+<form method="post">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Kartlar</li>
+        </ol>
+    </nav>
+    <div class="card">
+        <div class="card-header text-hover-secondary"> 
+            <div class="float-right">
+                <a asp-area="admin" asp-controller="Property" asp-action="Create">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-xs-down">Yeni Kart</span>
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                
+                
+                    <div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Başlık</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Properties )
+                                {
+                                    <tr>
+                                        <th>
+                                            <a asp-area="admin" asp-controller="Property" asp-action="Edit" asp-route-id="@item.Id">
+                                                @item.Title
+                                            </a>
+                                        </th>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    
+
+                 
+            </div>
+        </div>
+    </div>
+</form>

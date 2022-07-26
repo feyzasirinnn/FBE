@@ -1,0 +1,125 @@
+﻿@model List<Programs>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Programlar</h1>
+<form method="post">
+    <div class="row">
+
+        <div class="col-12">
+            <div class="float-right">
+                <a asp-area="admin" asp-controller="Program" asp-action="Create">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-xs-down">Yeni Program</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <nav aria-label="breadcrumb" class="d-flex flex-row justify-content-between" style=" background: linear-gradient(to right, #f8f9fc, #10156d, #00055d);">
+        <ol class="breadcrumb" style=" background: transparent;">
+            <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Programlar</li>
+        </ol>
+        <div class="d-flex flex-row align-items-center" style="margin-right: 10px; border-radius: 12px">
+                <input type="text" id="progFilter" placeholder="Program Adı Giriniz..." style="margin-right: 10px; border-radius: 12px">
+                <select id="eabdFilter" style="margin-right: 10px; border-radius: 12px" >
+                    <option value="0" >--Seçiniz--</option>
+                    @if (ViewBag.EABD != null)
+                    {
+                        foreach (var item in ViewBag.EABD)
+                        {
+                            <option value="@item.EABD_Id">@item.EABD_Ad_Tr</option>}
+                        }
+                </select>
+            </div>
+    </nav>
+
+
+    <div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Program Adı</th>
+                    <th scope="col">EABD</th>
+                    <th scope="col">Düzenle</th>
+                    <th scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody id="progTable">
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <th>
+                        <a asp-area="admin" asp-controller="Program" asp-action="Edit" asp-route-id="@item.Prog_Id">
+                            @item.Prog_Ad
+                        </a>
+                    </th>
+                    <td>@item.EABD.EABD_Ad_Tr</td>
+                    @*<td>
+                        @{ if (ViewBag.images.Count > 0 && ViewBag.images != null)
+                            {
+                                foreach (var image in ViewBag.images)
+                                {
+                                    if (image.ProgramImage.Prog_Id == item.Prog_Id)
+                                    {
+                <img style="width:60px;border-radius:50%" src="@image.ImageUrl" /> }
+                                    }
+                                } }
+                    </td>*@
+                    <!--<td>
+                        @{ if (ViewBag.files.Count > 0 && ViewBag.files != null)
+                            {
+                                foreach (var file in ViewBag.files)
+                                {
+                                    if (file.FilesProgram.Prog_Id == item.Prog_Id)
+                                    {
+                @file.FileTitle }
+                                    }
+                                } }
+                    </td>-->
+                    <td><a asp-area="admin" asp-controller="Program" asp-action="Detay" asp-route-id="@item.Prog_Id" class="btn btn-info">Düzenle</a></td>
+                    <td><a asp-area="admin" asp-controller="Program" asp-action="Delete" asp-route-id="@item.Prog_Id" class="btn btn-danger">Sil</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>
+<script>
+
+    $(function () {
+        var model = [];
+        $.get("/Admin/Program/getAllPrograms", function (result) {
+            model = result.data;
+        });
+        console.log(model);
+        $('#progFilter').on('input', function () {
+            var table = $('#progTable');
+            table.empty();
+            var val = $('#progFilter').val();
+            var filtered = model.filter(x => x.programName.includes(val));
+            $.each(filtered, function (index, result) {
+                table.append('<tr><th><a href="/Admin/Program/Edit?id=' + result.progId + '">' + result.programName + '</a></th><td>' + result.programEABD + '</td><td><a class="btn btn-info" href="/Admin/Program/Detay?id=' + result.progId + '">Detaylar</a></td><td><a class="btn btn-danger" href="/Admin/Program/Delete?id=' + result.progId + '">Sil</a></td></tr>');
+            })
+        });
+        $('#eabdFilter').on('change', function () {
+            var id = $('#eabdFilter option:selected').val();
+            console.log(id)
+            var filtered = null;
+            if (id == 0) {
+                filtered = model;
+            } else {
+                filtered = model.filter(x => x.programEABDId == id);
+            }
+            console.log(filtered)
+            var table = $('#progTable');
+            table.empty();
+            $.each(filtered, function (index, result) {
+                table.append('<tr><th><a href="/Admin/Program/Edit?id=' + result.progId + '">' + result.programName + '</a></th><td>' + result.programEABD + '</td><td><a class="btn btn-info" href="/Admin/Program/Detay?id=' + result.progId + '">Detaylar</a></td><td><a class="btn btn-danger" href="/Admin/Program/Delete?id=' + result.progId + '">Sil</a></td></tr>');
+            })
+        });
+    })
+</script>
+

@@ -1,0 +1,127 @@
+﻿@model FBE.ViewModels.Page.PageCreate
+@{
+    ViewData["Title"] = "Create";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Page" asp-action="Index">İçerik Sayfaları</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Yeni Sayfa</li>
+    </ol>
+</nav>
+
+<div>
+    <div class="d-flex justify-content-center align-items-center p-2">
+        <a class="btn btn-primary text-white mr-2" id="btnPageTr">Türkçe</a>
+        <a class="btn btn-primary text-white ml-2" id="btnPageEn">English</a>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h4 class="float-left  text-info">
+                <i class="fa fa-plus fa-lg text-info"></i> Yeni Sayfa
+            </h4>
+        </div>
+        <div class="card-body row">
+            <div class="col-xs-12 col-lg-12">
+                <form method="post" enctype="multipart/form-data">
+                    <div id="divPageTr">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                <span class="input-group-text ">Başlık</span>
+                            </div>
+                            <input asp-for="Title" type="text" class="form-control">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                <span class="input-group-text ">Resim</span>
+                            </div>
+                            <input multiple asp-for="Images" type="file" accept="image/*" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <span class="input-group-text">Sayfa</span>
+                            <div ass="col-md-10">
+                                <textarea asp-for="Description" id="Description" class="ckeditor" name="Description" aria-label="With textarea"></textarea>
+                            </div>
+                        </div>
+                        <div id="files">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                    <span class="input-group-text ">Dosya</span>
+                                </div>
+                                <input multiple asp-for="Files" type="file" class="form-control">
+                            </div>
+                        </div>
+                        <div class="float-right">
+                            <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                                <i class="fa fa-arrow-left"></i>
+                                İptal
+                            </a>
+                            <!--EKLE-->
+                            <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                                <i class="fa fa-plus"></i>
+                                Ekle
+                            </button>
+                        </div>
+                    </div>
+                    <div id="divPageEn" style="display:none">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                <span class="input-group-text ">Title</span>
+                            </div>
+                            <input asp-for="TitleEng" type="text" class="form-control">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                <span class="input-group-text ">Image</span>
+                            </div>
+                            <input multiple asp-for="Images" type="file" accept="image/*" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <span class="input-group-text">Page</span>
+                            <div ass="col-md-10">
+                                <textarea asp-for="DescriptionEng" id="Description" class="ckeditor" name="DescriptionEng" aria-label="With textarea"></textarea>
+                            </div>
+                        </div>
+                        <div id="files">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                    <span class="input-group-text ">Files</span>
+                                </div>
+                                <input multiple asp-for="Files" type="file" class="form-control">
+                            </div>
+                        </div>
+                        <div class="float-right">
+                            <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                                <i class="fa fa-arrow-left"></i>
+                                Cancel
+                            </a>
+                            <!--EKLE-->
+                            <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                                <i class="fa fa-plus"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#btnPageEn').click(function () {
+            $('#divPageEn').css({ display: "block" })
+            $('#divPageTr').css({ display: "none" })
+        })
+        $('#btnPageTr').click(function () {
+            $('#divPageTr').css({ display: "block" })
+            $('#divPageEn').css({ display: "none" })
+        })
+    });
+    CKEDITOR.replace('Description', {
+        filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+        filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+    });
+</script>

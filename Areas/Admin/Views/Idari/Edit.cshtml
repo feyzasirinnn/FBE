@@ -1,0 +1,110 @@
+﻿@model FBE.ViewModels.Idari.IdariEdit
+@{ ViewData["Title"] = "Create"; }
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Idari" asp-action="Index">İdari</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Yeni Personel</li>
+    </ol>
+</nav>
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            <i class="fa fa-plus fa-lg text-info"></i> Yeni Personel
+        </h4>
+    </div>
+    <div class="card-body row">
+        <div class="col-xs-12 col-lg-12">
+            <form method="post">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">İsim</span>
+                    </div>
+                    <input asp-for="ad" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Soy İsim</span>
+                    </div>
+                    <input asp-for="soyad" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Kullanıcı Adı</span>
+                    </div>
+                    <select class="form-control" asp-for="sicil_no">
+                        @foreach (var item in ViewBag.akademikkadro)
+                        {
+            <option value="@item.Sicil_No">@item.Kullanici_Adi  </option>
+}
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Görev</span>
+                    </div>
+                    <select class="form-control" asp-for="Gorev">
+                        @foreach (var item in ViewBag.ensgorevler)
+                        {
+            <option value="@item.EGorev_Id">@item.EGorev_Name  </option>}
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Fotoğraf Linki</span>
+                    </div>
+                    <input asp-for="photo" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Telefon</span>
+                    </div>
+                    <input asp-for="phone" type="text" class="form-control">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Yeni Unvan</span>
+                    </div>
+                    <input id="unvanInput" type="text" class="form-control">
+                    <a href="#" id="unvanBtn" class="btn btn-info">Ekle</a>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Unvan</span>
+                    </div>
+                    <select id="unvanSelect" asp-for="Unvan" class="form-control">
+                        <option value="0">--Seçiniz--</option>
+                        @if (ViewBag.Unvan.Count > 0)
+                        {
+                            foreach (var item in ViewBag.Unvan)
+                            {
+            <option value="@item.Unvan_Id">@item.Unvan_Name</option>}
+                        }
+                    </select>
+                </div>
+                <div class="float-right">
+                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                        <i class="fa fa-arrow-left"></i>
+                        İptal
+                    </a>
+                    <!--EKLE-->
+                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                        <i class="fa fa-plus"></i>
+                        Ekle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#unvanBtn').click(function () {
+            $.post("/Admin/Idari/UnvanCreate?unvan=" + $('#unvanInput').val(), function (data) {
+                $("#unvanSelect").append('<option value="' + data.data.Unvan_Id + '">' + data.data.Unvan_Name + '</option>');
+            });
+        });
+    });</script>

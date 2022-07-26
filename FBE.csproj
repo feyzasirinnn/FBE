@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ViewModels\EABD\**" />
+    <Compile Remove="wwwroot\storage\img\**" />
+    <Content Remove="ViewModels\EABD\**" />
+    <Content Remove="wwwroot\storage\img\**" />
+    <EmbeddedResource Remove="ViewModels\EABD\**" />
+    <EmbeddedResource Remove="wwwroot\storage\img\**" />
+    <None Remove="ViewModels\EABD\**" />
+    <None Remove="wwwroot\storage\img\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Email\" />
+    <Folder Include="wwwroot\storage\announcements\images\" />
+    <Folder Include="wwwroot\storage\announcements\files\" />
+    <Folder Include="wwwroot\storage\kadros\images\" />
+    <Folder Include="wwwroot\storage\kadros\files\" />
+    <Folder Include="wwwroot\storage\pages\images\" />
+    <Folder Include="wwwroot\storage\pages\files\" />
+    <Folder Include="wwwroot\storage\programs\files\" />
+    <Folder Include="wwwroot\storage\programs\images\" />
+    <Folder Include="wwwroot\storage\sliders\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\ckeditor\plugins\filebrowser\plugin.js" />
+  </ItemGroup>
+
+</Project>

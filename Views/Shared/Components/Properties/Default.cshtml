@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Property>
+
+<div class="row">
+    @foreach (var pr in Model.TakeLast(8))
+    {
+        if (ViewBag.culture == "tr")
+        {
+            <div class=" col-xs-3 col-md-3 p-1 border ">
+                <a href="@pr.Link" class="text-lg-left font-weight-bold">
+                    <i class="fas fa-external-link-alt align-left"></i>
+                    @pr.Title
+                </a>
+            </div>
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(pr.TitleEn))
+            {
+                <div class=" col-xs-3 col-md-3 p-1 border ">
+                <a href="@pr.Link" class="text-lg-left font-weight-bold">
+                    <i class="fas fa-external-link-alt align-left"></i>
+                    @pr.TitleEn
+                </a>
+            </div>
+            }
+        }
+
+    }
+</div>
+
+ 

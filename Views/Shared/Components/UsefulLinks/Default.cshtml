@@ -1,0 +1,13 @@
+﻿@model IEnumerable<UsefulLink>
+
+<h5 class="text-6 text-transform-none font-weight-semibold text-color-light mb-4">Faydalı Linkler</h5>
+<div class="row">
+    @foreach (var us in Model.TakeLast(12))
+    {
+        <div class="col-lg-6">
+            <p class="mb-1"><a href="@us.Link" class="text-4 link-hover-style-1">@us.Title</a></p>
+        </div>
+
+    }
+</div>
+

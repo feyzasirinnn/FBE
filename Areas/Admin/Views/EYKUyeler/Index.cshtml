@@ -1,0 +1,104 @@
+﻿@model List<EYKUyeler>
+@{ ViewData["Title"] = "Index"; }
+
+<h1>Programlar</h1>
+<form method="post">
+    <div class="row">
+
+        <div class="col-12">
+            <div class="float-right">
+                <a asp-area="admin" asp-controller="EYKUyeler" asp-action="Create">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-xs-down">Yeni Üye Ekle</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <nav aria-label="breadcrumb" class="d-flex flex-row justify-content-between" style=" background: linear-gradient(to right, #f8f9fc, #10156d, #00055d);">
+        <ol class="breadcrumb" style=" background: transparent;">
+            <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Üyeler</li>
+        </ol>
+        <div class="d-flex flex-row align-items-center" style="margin-right: 10px; border-radius: 12px">
+            <input type="text" id="eykuyeFilter" placeholder="Ad Giriniz..." style="margin-right: 10px; border-radius: 12px">
+            <select id="eabdFilter" style="margin-right: 10px; border-radius: 12px">
+                <option value="0">--Seçiniz--</option>
+                @if (ViewBag.EABD != null)
+                {
+                    foreach (var item in ViewBag.EABD)
+                    {
+    <option value="@item.EABD_Id">@item.EABD_Ad_Tr</option>
+}
+}
+            </select>
+        </div>
+    </nav>
+
+
+    <div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Unvan</th>
+                    <th scope="col">Ad Soyad</th>
+                    <th scope="col">Görev</th>
+                    <th scope="col">EABD</th>
+                    <th scope="col">Detaylar</th>
+                    <th scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody id="eykuyeTable">
+                @foreach (var item in Model)
+                {
+    <tr>
+        <th>
+            <a asp-area="admin" asp-controller="EYKUyeler" asp-action="Edit" asp-route-id="@item.eyk_uyeler_ID">
+                @item.Akademik_Kadro.Ad
+            </a>
+        </th>
+        <td>@item.EABD.EABD_Ad_Tr</td>
+        <td><a asp-area="admin" asp-controller="EYKUyeler" asp-action="Detay" asp-route-id="@item.eyk_uyeler_ID" class="btn btn-info">Detaylar</a></td>
+        <td><a asp-area="admin" asp-controller="EYKUyeler" asp-action="Delete" asp-route-id="@item.eyk_uyeler_ID" class="btn btn-danger">Sil</a></td>
+    </tr>}
+            </tbody>
+        </table>
+    </div>
+</form>
+<script>
+
+    $(function () {
+        var model = [];
+        $.get("/Admin/EYKUyeler/getAllEYKUyelers", function (result) {
+            model = result.data;
+        });
+        console.log(model);
+        $('#eykuyeFilter').on('input', function () {
+            var table = $('#eykuyeTable');
+            table.empty();
+            var val = $('#eykuyeFilter').val();
+            var filtered = model.filter(x => x.programName.includes(val));
+            $.each(filtered, function (index, result) {
+                table.append('<tr><th><a href="/Admin/EYKUyeler/Edit?id=' + result.eykuyeId + '">' + result.eykuyeName + '</a></th><td>' + result.eykuyeEABD + '</td><td>' + result.eykuyeGorev + '</td><td><a class="btn btn-info" href="/Admin/EYKUyeler/Detay?id=' + result.eykuyeId + '">Detaylar</a></td><td><a class="btn btn-danger" href="/Admin/EYKUyeler/Delete?id=' + result.eykuyeId + '">Sil</a></td></tr>');
+            })
+        });
+        $('#eabdFilter').on('change', function () {
+            var id = $('#eabdFilter option:selected').val();
+            console.log(id)
+            var filtered = null;
+            if (id == 0) {
+                filtered = model;
+            } else {
+                filtered = model.filter(x => x.programEABDId == id);
+            }
+            console.log(filtered)
+            var table = $('#eykuyeTable');
+            table.empty();
+            $.each(filtered, function (index, result) {
+                table.append('<tr><th><a href="/Admin/EYKUyeler/Edit?id=' + result.eykuyeId + '">' + result.eykuyeName + '</a></th><td>' + result.eykuyeEABD + '</td><td>' + result.eykuyeGorev + '</td><td><a class="btn btn-info" href="/Admin/EYKUyeler/Detay?id=' + result.eykuyeId + '">Detaylar</a></td><td><a class="btn btn-danger" href="/Admin/EYKUyeler/Delete?id=' + result.eykuyeId + '">Sil</a></td></tr>');
+            })
+        });
+    })
+</script>
+

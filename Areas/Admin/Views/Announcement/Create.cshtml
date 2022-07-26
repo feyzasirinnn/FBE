@@ -1,0 +1,201 @@
+﻿@model AnnouncementCreate
+
+@{
+    ViewData["Title"] = "Yeni Duyuru";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Announcement" asp-action="Index">Duyurular</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Yeni Duyuru</li>
+    </ol>
+</nav>
+<div>
+    <div class="d-flex justify-content-center align-items-center p-2">
+        <a class="btn btn-primary text-white mr-2" id="btnAnnounceTr">Türkçe</a>
+        <a class="btn btn-primary text-white ml-2" id="btnAnnounceEn">English</a>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="float-left  text-info">
+                <i class="fa fa-plus fa-lg text-info"></i> @ViewBag.Title
+            </h4>
+        </div>
+
+        <div class="card-body row">
+            <div class="col-12">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="container">
+                        <div class="row">
+                            <div id="divAnnounceTr">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                        <span class="input-group-text " id="basic-addon3">Başlık</span>
+                                    </div>
+                                    <input asp-for="Title" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="input-group mb-3 col-md-6">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon3">Başlangıç Tarihi</span>
+                                            </div>
+                                            <input asp-for="StartDate" type="date" class="form-control" id="datetr" aria-describedby="basic-addon3">
+                                        </div>
+                                        <div class="input-group mb-3 col-md-6">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon3">Bitiş Tarihi</span>
+                                            </div>
+                                            <input asp-for="EndDate" type="date" class="form-control" id="datetr" aria-describedby="basic-addon3">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                        <span class="input-group-text ">Resim</span>
+                                    </div>
+                                    <input multiple asp-for="Images" type="file" accept="image/*" class="form-control">
+                                </div>
+                                <div id="files">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                            <span class="input-group-text ">Dosya</span>
+                                        </div>
+                                        <input multiple asp-for="Files" type="file" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="input-group-text" id="basic-addon3">Açıklama</span>
+                                    <div ass="col-md-10">
+                                        <textarea asp-for="Description" id="Description" class="ckeditor" name="Description" aria-label="With textarea"></textarea>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">Önemli Duyuru</span>
+                                    </div>
+                                    <input asp-for="IsImportant" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">Aktif mi?</span>
+                                    </div>
+                                    <input asp-for="Enable" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">Popup mı?</span>
+                                    </div>
+                                    <input asp-for="Popup" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="float-right">
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                                        <i class="fa fa-arrow-left"></i>
+                                        İptal
+                                    </a>
+                                    <!--EKLE-->
+                                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                                        <i class="fa fa-plus"></i>
+                                        Ekle
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="divAnnounceEn" style="display:none">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                        <span class="input-group-text " id="basic-addon3">Title</span>
+                                    </div>
+                                    <input asp-for="TitleEng" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="input-group mb-3 col-md-6">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon3">Start Date</span>
+                                            </div>
+                                            <input asp-for="StartDate" type="date" class="form-control" id="datetr" aria-describedby="basic-addon3">
+                                        </div>
+                                        @*<div class="input-group mb-3 col-md-6">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon3">End Date</span>
+                                            </div>
+                                            <input asp-for="EndDate" type="date" class="form-control" id="datetr" aria-describedby="basic-addon3">
+                                        </div>*@
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                        <span class="input-group-text ">Photo</span>
+                                    </div>
+                                    <input multiple asp-for="Images" type="file" accept="image/*" class="form-control">
+                                </div>
+                                <div id="files">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                            <span class="input-group-text ">File</span>
+                                        </div>
+                                        <input multiple asp-for="Files" type="file" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="input-group-text" id="basic-addon3">Description</span>
+                                    <div ass="col-md-10">
+                                        <textarea asp-for="DescriptionEng" id="Description" class="ckeditor" name="DescriptionEng" aria-label="With textarea"></textarea>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">is Important</span>
+                                    </div>
+                                    <input asp-for="IsImportant" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">is Active?</span>
+                                    </div>
+                                    <input asp-for="Enable" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">is Popup?</span>
+                                    </div>
+                                    <input asp-for="Popup" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="float-right">
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                                        <i class="fa fa-arrow-left"></i>
+                                        Cancel
+                                    </a>
+                                    <!--EKLE-->
+                                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                                        <i class="fa fa-plus"></i>
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+
+                                
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+        </div>
+    
+</div>
+<script>
+    $(function () {
+        $('#btnAnnounceEn').click(function () {
+            $('#dateen').val($('#datetr').val())
+            $('#divAnnounceEn').css({ display: "block" })
+            $('#divAnnounceTr').css({ display: "none" })
+        })
+        $('#btnAnnounceTr').click(function () {
+            $('#datetr').val($('#dateen').val())
+            $('#divAnnounceTr').css({ display: "block" })
+            $('#divAnnounceEn').css({ display: "none" })
+        })
+    })
+</script>

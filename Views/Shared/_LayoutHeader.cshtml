@@ -1,0 +1,48 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
+    <div class="header-body border-0">
+        <div class="header-container container">
+            <div class="header-row">
+                <div class="header-column">
+                    <div class="header-row">
+                        <div class="header-column">
+                            <div class="header-row">
+                                <div class="col-lg-xs-sm-1" style="margin-right: 5px; ">
+                                    <a asp-controller="Home" asp-action="Index" title="Sakarya Üniversitesi" rel="home">
+                                        <img style="margin-bottom: 12px;padding:0" width="56" src="~/sakarya.png" alt="Sakarya Üniversitesi">
+                                    </a>
+                                </div>
+                                <div class="col-lg-xs-sm-8">
+                                    <a asp-controller="Home" asp-action="Index" title="Sakarya Üniversitesi" rel="home" style="text-decoration-line: unset">
+                                        <span style="font-size: 20px; line-height: 22px; font-family: times new roman; font-weight: bold; color:#383f48; margin-left:20px">@localizer["SAKARYA ÜNİVERSİTESİ"]</span>
+                                        <br>
+                                        <span style="font-size: 14px; line-height: 20px; font-family: times new roman; font-weight: bold;color:#383f48;margin-left:20px">@localizer["Fen Bilimleri Enstitüsü"]</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="header-column justify-content-end">
+                    <div class="header-row">
+                        <div class="header-nav header-nav-links order-2 order-lg-1">
+                            <div class="header-nav-main header-nav-main-square header-nav-main-effect-2 header-nav-main-sub-effect-1">
+                                <nav class="collapse">
+
+                                    @await Component.InvokeAsync("NavMenu")
+
+                                </nav>
+                            </div>
+                            <button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main nav">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+

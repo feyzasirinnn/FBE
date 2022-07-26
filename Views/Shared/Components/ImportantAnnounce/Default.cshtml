@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Announce>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<div class="card border">
+    <div class="card-header" style="height:40px">
+        <h5 class="card-title">@localizer["ÖNEMLİ DUYURULAR"]</h5>
+        <h6>
+            <a asp-controller="Announcement" asp-action="ImportantAnnounce">
+                <span class="float-right" style="font-size:11px; margin-top:-31px">@localizer["TÜMÜ"]</span>
+            </a>
+        </h6>
+    </div>
+    <div class="card-body">
+        @foreach (var an in Model.Take(5))
+        {
+            if (ViewBag.culture == "tr")
+            {
+                <div class="row m-6">
+                    <div class="col-12">
+                        <div class="post-content  ">
+                            <div class="three-dot">
+                                <h6 class="font-weight-semibold text-3  ">
+                                <a asp-controller="Announcement" asp-action="Details" asp-route-id="@an.Id">
+                                    <i class="fas fa-paper-plane"></i>
+                                    &nbsp;
+                                    @an.Title
+                                </a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(an.TitleEng))
+                {
+                    <div class="row m-6">
+                    <div class="col-12">
+                        <div class="post-content  ">
+                            <div class="three-dot">
+                                <h6 class="font-weight-semibold text-3  ">
+                                <a asp-controller="Announcement" asp-action="Details" asp-route-id="@an.Id">
+                                    <i class="fas fa-paper-plane"></i>
+                                    &nbsp;
+                                    @an.TitleEng
+                                </a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+            <br />
+            }
+    </div>
+</div>

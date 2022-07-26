@@ -1,0 +1,53 @@
+﻿@model FBE.ViewModels.Program.ProgramDetay
+@{
+    ViewData["Title"] = "Detay";
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Program" asp-action="Index">Programlar</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Program</li>
+    </ol>
+</nav>
+<div class="d-flex justify-content-center align-items-center p-2">
+    <a class="btn btn-primary text-white mr-2" id="btnAnnounceTr">Türkçe</a>
+    <a class="btn btn-primary text-white ml-2" id="btnAnnounceEn">English</a>
+</div>
+<form method="post" asp-route-id="@Model.Programid">
+    <div id="divDetayTr">
+        <div class="form-group">
+            <span class="input-group-text" id="basic-addon3">Program Detay</span>
+            <div ass="col-md-10">
+                <textarea asp-for="Detay" id="Description" class="ckeditor"></textarea>
+            </div>
+        </div>
+    </div>
+    <div id="divDetayEn" style="display:none">
+        <div class="form-group">
+            <span class="input-group-text" id="basic-addon3">Program Detay</span>
+            <div ass="col-md-10">
+                <textarea asp-for="DetayEn" id="Description" class="ckeditor"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="float-right">
+        <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+            <i class="fa fa-arrow-left"></i>
+            İptal
+        </a>
+        <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+            <i class="fa fa-plus"></i>
+            Kaydet
+        </button>
+    </div>
+</form>
+<script>$(function () {
+        $('#btnAnnounceEn').click(function () {
+            $('#divDetayEn').css({ display: "block" })
+            $('#divDetayTr').css({ display: "none" })
+        })
+        $('#btnAnnounceTr').click(function () {
+            $('#divDetayTr').css({ display: "block" })
+            $('#divDetayEn').css({ display: "none" })
+        })
+    })</script>

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Menu>
+
+<script src="~/script.js"></script>
+<div class="card-title text-center">
+    <h3><strong>Menü Yönetimi</strong></h3>
+</div>
+<form method="post">
+    <div class="row">
+
+        <div class="col-12">
+            <div class="float-right">
+                <a asp-area="Admin" asp-controller="Menu" asp-action="Create">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-xs-down">Yeni Menü</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Menüler</li>
+        </ol>
+    </nav>
+
+
+    <div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Yönlendirme</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Düzenle</th>
+                    <th scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.MenuChild == null)
+                    {
+                        <tr draggable="true" class="draggableitem">
+                            <td>@item.MenuTitle</td>
+                            <td>@item.MenuURL</td>
+                            <td>@item.MenuTarget</td>
+                            <td>@item.MenuStatus</td>
+                            <td><a class="btn btn-info" asp-area="admin" asp-controller="Menu" asp-action="Edit" asp-route-id="@item.MenuId">Düzenle</a></td>
+                            <td><a class="btn btn-danger" asp-area="admin" asp-controller="Menu" asp-action="Delete" asp-route-id="@item.MenuId">Sil</a></td>
+                        </tr>
+                        @foreach (var childs in ViewBag.childs)
+                        {
+                            @if (childs.MenuChild == item.MenuId)
+                                { 
+                                    <tr draggable="false" class="">
+                                        <td class="pl-5">@item.MenuTitle / @childs.MenuTitle</td>
+                                        <td>@childs.MenuURL</td>
+                                        <td>@childs.MenuTarget</td>
+                                        <td>@childs.MenuStatus</td>
+                                        <td><a class="btn btn-info" asp-area="admin" asp-controller="Menu" asp-action="Edit" asp-route-id="@childs.MenuId">Düzenle</a></td>
+                                        <td><a class="btn btn-danger" asp-area="admin" asp-controller="Menu" asp-action="Delete" asp-route-id="@childs.MenuId">Sil</a></td>
+                                    </tr>
+                                }
+                            }
+                        }
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

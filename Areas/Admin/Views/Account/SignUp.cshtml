@@ -1,0 +1,64 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "Yeni Kullanıcı";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Account" asp-action="Index">Kullanıcılar</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Yeni Kullanıcı</li>
+    </ol>
+</nav>
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            <i class="fa fa-plus fa-lg text-info"></i> @ViewBag.Title
+        </h4>
+    </div>
+
+    <div class="card-body row">
+
+        <div class="col-xs-12 col-lg-9">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary()
+                @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Kullanıcı Adı</span>
+                    </div>
+                    <input asp-for="UserName" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    @*<input asp-for="Title" placeholder="Slayt Başlığı" />*@
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">E-mail</span>
+                    </div>
+                    <input asp-for="Email" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Şifre</span>
+                    </div>
+                    <input asp-for="Password" type="password" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+
+                <!--İPTAL-->
+                <div class="float-right">
+                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                        <i class="fa fa-arrow-left"></i>
+                        İptal
+                    </a>
+                    <!--EKLE-->
+                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                        <i class="fa fa-plus"></i>
+                        Ekle
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+ 

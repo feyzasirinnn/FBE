@@ -1,0 +1,149 @@
+﻿@model FBE.ViewModels.Page.PageEdit
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Page" asp-action="Index">İçerik Sayfaları</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Düzenle</li>
+    </ol>
+</nav>
+<div>
+    <div class="d-flex justify-content-center align-items-center p-2">
+        <a class="btn btn-primary text-white mr-2" id="btnPageTr">Türkçe</a>
+        <a class="btn btn-primary text-white ml-2" id="btnPageEn">English</a>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="float-left  text-info">
+                <i class="fa fa-edit fa-lg text-info"></i> Düzenle
+            </h4>
+        </div>
+        <div class="card-body row">
+            <div class="col-12">
+                <form method="post" asp-route-id="@ViewBag.id">
+                    <div id="divPageTr">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Başlık</span>
+                            </div>
+                            <input asp-for="Title" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <span class="input-group-text" id="basic-addon3">Sayfa</span>
+                            <div ass="col-md-10">
+                                <textarea asp-for="Description" id="Description" class="ckeditor" name="Description" aria-label="With textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="float-right mb-3">
+                            <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                                <i class="fa fa-arrow-left"></i>
+                                İptal
+                            </a>
+                            <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                                <i class="fa fa-plus"></i>
+                                Kaydet
+                            </button>
+                        </div>
+                    </div>
+                    <div id="divPageEn" style="display:none">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Title</span>
+                            </div>
+                            <input asp-for="TitleEng" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <span class="input-group-text" id="basic-addon3">Page</span>
+                            <div ass="col-md-10">
+                                <textarea asp-for="DescriptionEng" id="DescriptionEng" class="ckeditor" name="DescriptionEng" aria-label="With textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="float-right mb-3">
+                            <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                                <i class="fa fa-arrow-left"></i>
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                                <i class="fa fa-plus"></i>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <form method="post" asp-action="ImageUpload" asp-route-id="@ViewBag.id" enctype="multipart/form-data">
+                    <div id="images">
+                        @if (Model.Images.Count > 0)
+                        {
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                    <span class="input-group-text ">Resimler</span>
+                                </div>
+                                <ul class="input-group">
+                                    @foreach (var item in Model.Images)
+                                    {
+                                        <li class=" w-100">@item.ImageTitle<a class="float-right" asp-action="FileDelete" asp-route-id="@item.ImageId" asp-route-returnid="@ViewBag.id">Resmi Sil</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                <span class="input-group-text ">Yeni Resim</span>
+                            </div>
+                            <input class="form-control" type="file" name="images" accept="image/*" multiple />
+                            <button type="submit" class="btn btn-primary">Yükle</button>
+                        </div>
+                    </div>
+                </form>
+                <form method="post" asp-action="FileUpload" asp-route-id="@ViewBag.id" enctype="multipart/form-data">
+                    <div id="files">
+                        @if (Model.Files.Count > 0)
+                        {
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                    <span class="input-group-text ">Dosyalar</span>
+                                </div>
+                                <ul class="input-group">
+                                    @foreach (var item in Model.Files)
+                                    {
+                                        <li class=" w-100">@item.FileTitle<a class="float-right" asp-action="FileDelete" asp-route-id="@item.FileId" asp-route-returnid="@ViewBag.id">Dosyayı Sil</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                <span class="input-group-text ">Yeni Dosya</span>
+                            </div>
+                            <input class="form-control" type="file" name="files" multiple />
+                            <button type="submit" class="btn btn-primary">Yükle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+<script>
+        $(function () {
+            $('#btnPageEn').click(function () {
+                $('#divPageEn').css({ display: "block" })
+                $('#divPageTr').css({ display: "none" })
+            })
+            $('#btnPageTr').click(function () {
+                $('#divPageTr').css({ display: "block" })
+                $('#divPageEn').css({ display: "none" })
+            })
+        });
+    CKEDITOR.replace('Description', {
+        customConfig: '/ckeditor/Config.js'
+            @*filebrowserBrowseUrl: '/CkEditor/Index',
+            filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'*@
+    });
+    
+</script>

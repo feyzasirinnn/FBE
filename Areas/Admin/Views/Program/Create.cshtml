@@ -1,0 +1,227 @@
+﻿@model FBE.ViewModels.Program.ProgramCreate
+@{
+    ViewData["Title"] = "Create";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Program" asp-action="Index">Programlar</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Yeni Program</li>
+    </ol>
+</nav>
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            EABD
+        </h4>
+    </div>
+    <div class="card-body">
+        <div>
+            <div class="d-flex align-items-center mb-2">
+                <select id="eabdSelect" class="form-control w-75">
+                    <option value="0">--Seçiniz--</option>
+                    @if (ViewBag.EABD != null)
+                    {
+                        foreach (var item in ViewBag.EABD)
+                        {
+        <option value="@item.EABD_Id">@item.EABD_Ad_Tr</option>}
+                    }
+                </select>
+                <div class="d-flex w-25 mx-2">
+                    <a id="newEabd" class="btn btn-info text-white">Yeni EABD</a>
+                    <a id="editEabd" class="btn btn-primary text-white mx-2">Düzenle</a>
+                    <a id="deleteEabd" class="btn btn-danger text-white">Sil</a>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                    <span class="input-group-text">EBS Id</span>
+                </div>
+                <input type="number" class="form-control" asp-for="EBSId">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            Program
+        </h4>
+    </div>
+    <div class="card-body">
+        <form class="form" id="myForm" method="post" asp-action="Create" asp-controller="Program">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                    <span class="input-group-text">Program Adı</span>
+                </div>
+                <input asp-for="Prog_Ad" type="text" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                    <span class="input-group-text">Program Adı(İngilizce)</span>
+                </div>
+                <input asp-for="Prog_Ad_En" type="text" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                    <span class="input-group-text">Program Adı(Arapça)</span>
+                </div>
+                <input asp-for="Prog_Ad_Ar" type="text" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                    <span class="input-group-text">Program Düzey</span>
+                </div>
+                <select asp-for="ProgramDuzey" class="form-control">
+                    <option>--Seçiniz--</option>
+                    @if (ViewBag.Duzeys != null)
+                    {
+                        foreach (var item in ViewBag.Duzeys)
+                        {
+        <option value="@item.Prog_Duzey_Id">@item.Prog_Duzey</option>}
+                    }
+                </select>
+            </div>
+            @*<div class="input-group mb-3">
+                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                    <span class="input-group-text ">Resim</span>
+                </div>
+                <input multiple asp-for="Images" type="file" accept="image/*" class="form-control">
+            </div>
+            <div id="files">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Dosya</span>
+                    </div>
+                    <input multiple asp-for="Files" type="file" class="form-control">
+                </div>
+            </div>*@
+            <div class="input-group mb-3">
+                <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                    <span class="input-group-text">EABD</span>
+                </div>
+                <select asp-for="ProgramEABD" class="form-control" id="eabdSelect1">
+                    <option value="0">--Seçiniz--</option>
+                    @if (ViewBag.EABD != null)
+                    {
+                        foreach (var item in ViewBag.EABD)
+                        {
+        <option value="@item.EABD_Id">@item.EABD_Ad_Tr</option>}
+                    }
+                </select>
+            </div>
+            <div class="d-flex justify-content-between w-100 my-2" style="height:250px">
+                <div id="kadro1" class="table-responsive">
+                    <h4 class="text-center border-bottom">Tüm Kadro</h4>
+                </div>
+                <div class="w-50 table-responsive" id="kadro2">
+                    <h4 class="text-center border-bottom">Programın Kadrosu</h4>
+                </div>
+            </div>
+            
+            <div class="float-right">
+                <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                    <i class="fa fa-arrow-left"></i>
+                    İptal
+                </a>
+                <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                    <i class="fa fa-plus"></i>
+                    Ekle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+
+    $(function () {
+
+        var kadro1 = $('#kadro1')
+        var kadro2 = $('#kadro2')
+        var i = 0;
+        kadro1.mouseenter(function () {
+            kadro1 = $('#kadro1')
+            kadro1.children().unbind('click').click(function () {
+                kadro2.append('<input value="' + this.value + '" type="text" readonly class="form-control text-center my-2" />')
+                kadro2.append('<input value="' + this.id + '" type="hidden" readonly class="form-control text-center my-2" id="ProgramKadro_' + i + '__Name" name="ProgramKadro[' + i + ']" />')
+                this.remove();
+                i++;
+            })
+        })
+        kadro2.mouseenter(function () {
+            kadro2 = $('#kadro2')
+            kadro2.children().unbind('click').click(function () {
+                kadro1.append('<input id="'+this.nextSibling.value+'" value="' + this.value + '" type="text" readonly class="form-control text-center my-2" />')
+                this.nextSibling.remove();
+                this.remove();
+                
+            })
+        })
+        $('#newEabd').on('click', function () {
+            var div = $(this).parent().parent().parent();
+            if (div.children().length > 1) {
+                div.children()[1].remove();
+            }
+            div.append('<form method="post" action="/Admin/Eabd/Create"><div class="input-group mb-3"><div class= "input-group-prepend bg-color-light-scale-border-top-4" ><span class="input-group-text">EABD Adı</span></div ><input name="eabd" type="text" class="form-control"></div><div class="input-group mb-3"><div class= "input-group-prepend bg-color-light-scale-border-top-4" ><span class="input-group-text">EABD Adı(İngilizce)</span></div ><input name="eabdEn" type="text" class="form-control"></div><div class="float-right"><button type="submit" class="btn btn-info ml-4" style="width:140px;"><i class="fa fa-plus"></i>Ekle</button></div></form>')
+        });
+        $('#editEabd').on('click', function () {
+            var id = ($('#eabdSelect option:selected').val());
+            if (id > 0) {
+                $.get("/Admin/Eabd/Edit?id=" + id, function (result) {
+                    var div = $('#editEabd').parent().parent().parent();
+                    if (div.children().length > 1) {
+                        div.children()[1].remove();
+                    }
+                    div.append('<form method="post" action="/Admin/Eabd/Edit"><input type="hidden"  value="' + id + '" name="id"/><div class="input-group mb-3"><div class= "input-group-prepend bg-color-light-scale-border-top-4" ><span class="input-group-text">EABD Adı</span></div ><input name="eabd" type="text" class="form-control"></div><div class="input-group mb-3"><div class= "input-group-prepend bg-color-light-scale-border-top-4" ><span class="input-group-text">EABD Adı(İngilizce)</span></div ><input name="eabdEn" type="text" class="form-control"></div><div class="float-right"><button type="submit" class="btn btn-primary ml-4" style="width:140px;">Düzenle</button></div></form>')
+                })
+            }
+        });
+        $('#deleteEabd').on('click', function () {
+            var id = ($('#eabdSelect option:selected').val());
+            if (id > 0) {
+                $.get("/Admin/Eabd/Delete?id=" + id, function () {
+                    var div = $('#editEabd').parent().parent().parent();
+                    if (div.children().length > 1) {
+                        div.children()[1].remove();
+                    }
+                    div.append('<span>Silme işlemi Başarılı</span>')
+                    location.reload();
+                })
+            }
+        });
+        $('#eabdSelect1').change(function () {
+            var kadroasd = $('#kadro2').children().filter(function (index,result) {
+                if ($(result).attr('type')=='hidden') {
+                    return result;
+                }
+            });
+            var id = $('#eabdSelect1').val();
+            if (id != 0) {
+                $.ajax({
+                    url: '/Admin/Program/KadroWithEabd',
+                    data: { eabd: id },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        kadro1 = $('#kadro1');
+                        kadro1.empty();
+                        kadro1.append('<h4 class="text-center border-bottom">Tüm Kadro</h4>');
+                        $.each(data.data, function (index, result) {
+                            var bool = true;
+                            $.each(kadroasd, function (i, r) {
+                                var element = $(r);
+                                if (element.val() == result.Sicil_No) {
+                                    bool = false;
+                                }
+                            })
+                            if (bool) {
+                                kadro1.append('<input id="' + result.Sicil_No + '" value="' + result.Ad + ' ' + result.Soyad + '" type="text" readonly class="form-control text-center my-2" />');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    })
+</script>

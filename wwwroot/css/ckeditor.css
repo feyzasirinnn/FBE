@@ -1,0 +1,42 @@
+﻿body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+.cscontainer {
+    display: flex;
+}
+.cssidebar {
+    height:100vh;
+    min-width:250px;
+    background-color:#f0f0f0;
+    margin-right:10px;
+    padding-inline:10px;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+}
+.sidebarbtn{
+    display:flex;
+    justify-content:center;
+    padding:10px;
+    background-color:#dddddd;
+    width:80%;
+    margin-top:10px;
+    border-radius:10px;
+    cursor:pointer;
+}
+.sidebarbtn:hover{
+    background-color:#d0d0d0
+}
+.csimages{
+    display:flex;
+    flex-wrap:wrap
+}
+.csimages .csimage{
+    height:250px;
+    width:250px;
+    margin:10px;
+    border-radius:3px;
+}

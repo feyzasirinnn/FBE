@@ -1,0 +1,88 @@
+﻿@model List<Idari_Personel>
+@{ ViewData["Title"] = "Index"; }
+<div class="card-title text-center">
+    <h3><strong>Personel Yönetimi</strong></h3>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-12">
+            <div class="float-right">
+                <a asp-area="Admin" asp-controller="Idari" asp-action="Create">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-xs-down">Yeni Personel</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <nav aria-label="breadcrumb" class="d-flex flex-row justify-content-between" style=" background: linear-gradient(to right, #f8f9fc, #10156d, #00055d);">
+        <ol class="breadcrumb" style="background: transparent;">
+            <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">İdari Personel</li>
+            <div class="d-flex flex-row align-items-center" style="margin-left: 500px; border-radius: 12px">
+                <input type="text" id="idariFilter" placeholder="Ad Soyad Giriniz..." style="margin-right: 10px; border-radius: 12px">
+            </div>
+        </ol>
+
+    </nav>
+
+
+    <div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Ad Soyad</th>
+                    <th scope="col">Kullanıcı Adı</th>
+                    <th scope="col">Görev</th>
+                    <th scope="col">Unvan</th>
+                    <th scope="col">Fotorğraf</th>
+                    <th scope="col">Telefon</th>
+                    <th scope="col">Düzenle</th>
+                    <th scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody id="idariTable">
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                <tr>
+                    <td>@item.idari_Id</td>
+                    <td>@item.ad @item.soyad</td>
+                    <td>@item.Akademik_Kadro.Kullanici_Adi</td>
+                    <td>@item.Ens_Gorevler.EGorev_Name</td>
+                    <td>@item.Unvan.Unvan_Name</td>
+                    <td>@item.photo</td>
+                    <td>@item.phone</td>
+                    <td><a class="btn btn-primary" asp-area="Admin" asp-controller="Idari" asp-action="Edit" asp-route-id="@item.idari_Id">Düzenle</a></td>
+                    <td><a class="btn btn-danger" asp-area="Admin" asp-controller="Idari" asp-action="Delete" asp-route-id="@item.idari_Id">Sil</a></td>
+                </tr>
+}
+}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+
+<script>
+
+    $(function () {
+        var model = [];
+        $.get("/Admin/Idari/getAllIdaries", function (result) {
+            model = result.data;
+        });
+        $('#idariFilter').on('input', function () {
+            var table = $('#idariTable');
+            table.empty();
+            var val = $('#idariFilter').val();
+            console.log(model, val);
+            var filtered = model.filter(x => x.idariName.includes(val));
+            $.each(filtered, function (index, result) {
+                table.append('<tr><th><a href="/Admin/Idari/Edit?id=' + result.idariId + '">' + result.idariId + '</a></th><td>' + result.idariName + '</td><td>' + result.kullanici_adi + '</td><td>' + result.EGorevName + '</td><td>' + result.Unvan + '</td><td>' + result.photo + '</td><td>' + result.phone + '</td><td>' + '<a class="btn btn-info" href="/Admin/Idari/Detay?id=' + result.idariId + '">Detaylar</a></td><td><a class="btn btn-danger" href="/Admin/Idari/Delete?id=' + result.idariId + '">Sil</a></td></tr>');
+            })
+        });
+
+    })
+</script>

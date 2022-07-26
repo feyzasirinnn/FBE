@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Announce>
+ 
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+<section class="section section-no-border custom-section-spacement-1 bg-color-light m-0">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+                <h2 class="text-uppercase text-color-dark font-weight-bold">@localizer["Duyurular"]</h2>
+                <br />
+            </div>
+            
+        </div>
+        <div class="row" style="justify-content:center;">
+            @foreach (var q in Model.Take(8))
+            {
+                if (ViewBag.culture == "tr")
+                {
+                    <div class="col-sm-6 col-lg-3">
+                    <a asp-action="Details" asp-controller="Announcement" asp-route-id="@q.Id" class="popup-with-zoom-anim text-decoration-none">
+                        <span class="thumb-info custom-thumb-info-1 thumb-info-no-borders">
+                            <span class="thumb-info-wrapper p-0">
+                                    </span>
+                            <span class="thumb-info-caption bg-color-light">
+                                <span class="thumb-info-caption-text">
+                                    <span class="thumb-info-caption-title  three-dot text-uppercase text-color-dark font-weight-bold">@q.Title</span>
+                                    <span class="mb-0">@q.StartDate.ToString("dddd, dd MMMM yyyy")</span>
+                                    <span class="custom-thumb-info-caption-plus bg-color-primary text-color-light">+</span>
+                                </span>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(q.TitleEng))
+                    {
+                        <div class="col-sm-6 col-lg-3">
+                        <a asp-action="Details" asp-controller="Announcement" asp-route-id="@q.Id" class="popup-with-zoom-anim text-decoration-none">
+                            <span class="thumb-info custom-thumb-info-1 thumb-info-no-borders">
+                                <span class="thumb-info-wrapper p-0">
+                                        </span>
+                                <span class="thumb-info-caption bg-color-light">
+                                    <span class="thumb-info-caption-text">
+                                        <span class="thumb-info-caption-title  three-dot text-uppercase text-color-dark font-weight-bold">@q.TitleEng</span>
+                                        <span class="mb-0">@q.StartDate.ToString("dddd, dd MMMM yyyy")</span>
+                                        <span class="custom-thumb-info-caption-plus bg-color-primary text-color-light">+</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                    }
+                }
+                
+            }
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <a asp-controller="Announcement" asp-action="Index"  class="btn btn-outline btn-primary custom-btn-style-2 font-weight-semibold text-color-dark text-uppercase mt-3">@localizer["Tümünü Gör"]</a>
+            </div>
+        </div>
+    </div>
+</section>

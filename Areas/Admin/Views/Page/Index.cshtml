@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Page>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Statik Sayfalar</h1>
+<form method="post">
+    <div class="row">
+        <div class="col-12">
+            <div class="float-right">
+                <a asp-area="admin" asp-controller="Page" asp-action="Create">
+                    <i class="fa fa-plus"></i>
+                    <span class="hidden-xs-down">Yeni Sayfa</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Sayfalar</li>
+        </ol>
+    </nav>
+
+
+    <div class="tab-pane fade show active" id="nav-tr" role="tabpanel" aria-labelledby="nav-tr-tab">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Sayfa Adı</th>
+                    <th scope="col">Sil/Düzenle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th>
+                            @item.Title
+                        </th>
+                        <td>
+                            <a class="btn btn-danger" asp-area="admin" asp-controller="Page" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                            <a class="btn btn-primary" asp-area="admin" asp-controller="Page" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>
+

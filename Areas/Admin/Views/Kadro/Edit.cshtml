@@ -1,0 +1,152 @@
+﻿@model FBE.ViewModels.Kadro.KadroEdit
+@{
+    ViewData["Title"] = "Edit";
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Kadro" asp-action="Index">Kadro</a></li>
+        <li class="breadcrumb-item active" aria-current="Kadro">Edit</li>
+    </ol>
+</nav>
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            <i class="fa fa-plus fa-lg text-info"></i> Edit
+        </h4>
+    </div>
+    <div class="card-body row">
+        <div class="col-xs-12 col-lg-12">
+            <form method="post" enctype="multipart/form-data">
+                <div class="container">
+                    <div class="row">
+                        <div class="input-group mb-3 col-md-6">
+                            <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                <span class="input-group-text ">Unvan</span>
+                            </div>
+                            <select id="unvanSelect" asp-for="Unvan" class="form-control">
+                                <option value="0">--Seçiniz--</option>
+                                @if (ViewBag.Unvan.Count > 0)
+                                {
+                                    foreach (var item in ViewBag.Unvan)
+                                    {
+                    <option value="@item.Unvan_Id">@item.Unvan_Name</option>
+}
+            }
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3 col-md-6">
+                            <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                                <span class="input-group-text ">Sicil No</span>
+                            </div>
+                            <input asp-for="Sicilno" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">İsim</span>
+                    </div>
+                    <input asp-for="Ad" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Soy İsim</span>
+                    </div>
+                    <input asp-for="Soyad" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Kullanıcı Adı</span>
+                    </div>
+                    <input asp-for="Kullanici_Adi" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">EABD</span>
+                    </div>
+                    <select asp-for="EABDId" class="form-control">
+                        <option value="0">--Seçiniz--</option>
+                        @if (ViewBag.EABD.Count > 0)
+                        {
+                            foreach (var item in ViewBag.EABD)
+                            {
+            <option value="@item.EABD_Id">@item.EABD_Ad_Tr</option>
+}
+    }
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">EABD Başkanı mı?</span>
+                    </div>
+                    <input asp-for="EABDBaskan" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Resim</span>
+                    </div>
+                    <input multiple asp-for="Images" type="file" accept="image/*" class="form-control">
+                </div>
+                <div id="files">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Dosya</span>
+                        </div>
+                        <input multiple asp-for="Files" type="file" class="form-control">
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                        <span class="input-group-text ">Görev</span>
+                    </div>
+                    <select class="form-control" id="gorevSelect" asp-for="Gorev">
+                        <option value="0">--Seçiniz--</option>
+                        @foreach (var item in ViewBag.ensgorevler)
+                        {
+            <option value="@item.EGorev_Id">@item.EGorev_Name  </option>
+}
+                    </select>
+                </div>
+                <div id="gorevYetki">
+
+                </div>
+                
+                
+                <div class="float-right">
+                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                        <i class="fa fa-arrow-left"></i>
+                        İptal
+                    </a>
+                    <!--EKLE-->
+                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                        <i class="fa fa-plus"></i>
+                        Düzenle
+                    </button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#unvanBtn').click(function () {
+            $.post("/Admin/Kadro/UnvanEdit?unvan=" + $('#unvanInput').val(), function (data) {
+                $("#unvanSelect").append('<option value="' + data.data.Unvan_Id + '">' + data.data.Unvan_Name + '</option>');
+            });
+        });
+
+        $(function () {
+            $('#gorevBtn').click(function () {
+                $.post("/Admin/Kadro/GorevEdit?gorev=" + $('#gorevInput').val(), function (data) {
+                    $("#gorevSelect").append('<option value="' + data.data.EGorev_Id + '">' + data.data.EGorev_Name + '</option>');
+                });
+            });
+        });
+
+        
+        
+</script>

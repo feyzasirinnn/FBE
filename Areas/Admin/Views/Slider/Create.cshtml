@@ -1,0 +1,110 @@
+﻿@model SliderCreate
+
+@{
+    ViewData["Title"] = "Yeni Slayt";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Slider" asp-action="Index">Slaytlar</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Yeni Slayt</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="float-left  text-info">
+            <i class="fa fa-plus fa-lg text-info"></i> @ViewBag.Title
+        </h4>
+    </div>
+    <div class="card-body row">
+
+        <div class="col-12">
+            <form method="post" enctype="multipart/form-data">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Başlık</span>
+                    </div>
+                    <input asp-for="Title" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Sıra</span>
+                    </div>
+                    <input asp-for="Order" type="text" class="form-control">
+                </div>
+                <select id="linkSelect" asp-for="SelectValue" class="form-control mb-3">
+                    <option value="0">Dış Bağlantı</option>
+                    <option value="1">İçerik Sayfası</option>
+                </select>
+                <div id="SlideUrl1" class="input-group mb-3">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Resim</span>
+                        </div>
+                        <input multiple asp-for="Images" type="file" accept="image/*" class="form-control">
+                    </div>
+                </div>
+                <div id="SlideUrl2" class="input-group mb-3" style="display:none">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">İçerik Sayfası</span>
+                    </div>
+                    <select class="form-control" asp-for="PhotoUrl2">
+                        @foreach (var item in ViewBag.statics)
+                        {
+                            <option value="@item.Id">@item.Title</option>
+                        }
+                    </select>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend bg-color-light-scale-border-top-4">
+                            <span class="input-group-text ">Resim</span>
+                        </div>
+                        <input multiple asp-for="Images" type="file" accept="image/*" class="form-control">
+                    </div>
+                </div>
+                <div class="input-group mb-3" id="link" >
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Yönlendirme Linki</span>
+                    </div>
+                    <input asp-for="Link" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Aktif mi?</span>
+                    </div>
+                    <input asp-for="Enable" type="checkbox" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <!--İPTAL-->
+                <div class="float-right">
+                    <a href="@Url.Action("Index")" class="btn btn-warning" style="width:140px;">
+                        <i class="fa fa-arrow-left"></i>
+                        İptal
+                    </a>
+                    <button type="submit" class="btn btn-info ml-4" style="width:140px;">
+                        <i class="fa fa-plus"></i>
+                        Ekle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $('#linkSelect').change(function () {
+            var value = $('#linkSelect').val()
+            if (value == 0) {
+                $('#SlideUrl2').hide()
+                $('#SlideUrl1').show()
+                $('#link').show()
+            } else {
+                $('#SlideUrl1').hide()
+                $('#link').hide()
+                $('#SlideUrl2').show()
+            }
+        })
+    })
+</script>

@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "Anasayfa ";
+}
+<h4>Ana Sayfa</h4>
+<div class="card-deck">
+    <div class="card">
+        <div class="card-header">Özellikler </div>
+        <div class="card-body">
+            <ul class="list-group-flush">
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Slider" asp-action="Index">
+                        Slaytlar
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Property" asp-action="Index">
+                        Kartlar
+                    </a>
+                </li>
+
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="ULinks" asp-action="Index">
+                        Faydalı Linkler
+                    </a>
+                </li>
+                
+                
+
+            </ul>
+        </div>
+
+    </div>
+    <div class="card">
+        <div class="card-header">Program Yönlendirme </div>
+        <div class="card-body">
+            <ul class="list-group-flush">
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Program" asp-action="Index">
+                        Programlar
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Conditions" asp-action="Index">
+                        Başvuru Koşulları Ve Kontenjanlar
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Kadro" asp-action="Index">
+                        Kadro
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<hr />
+
+<h4>Genel</h4>
+<div class="card-body">
+    <ul class="list-group-flush">
+        <li class="list-group-item">
+            <a asp-area="admin" asp-controller="Announcement" asp-action="Index">
+                Duyurular
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a asp-area="admin" asp-controller="Menu" asp-action="Index">
+                Menü Yönetimi
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a asp-area="admin" asp-controller="Page" asp-action="Index">
+                İçerik Sayfası Yönetimi
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+@*<div class="card-deck">
+    <div class="card"> 
+        <div class="card-body">
+            <ul class="list-group-flush">
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Erasmus" asp-action="Index">
+                        Erasmus
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Study" asp-action="Index">
+                        Öğrenim
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Internship" asp-action="Index">
+                        Staj
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Personnel" asp-action="Index">
+                        Personel
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Incoming" asp-action="Index">
+                        Gelen
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-area="admin" asp-controller="Project" asp-action="Index">
+                        Projeler
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    S.S.S
+                    <ul>
+                        <li>
+                            <a asp-area="admin" asp-controller="SSS" asp-action="PersonelIndex">
+                                Personel
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="admin" asp-controller="SSS" asp-action="OgrenimIndex">
+                                Öğrenim
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="admin" asp-controller="SSS" asp-action="StajIndex">
+                                Staj
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="list-group-item">
+                    İletişim
+                    <ul>
+                        <li>
+                            <a asp-area="admin" asp-controller="Contact" asp-action="InfoIndex">
+                               İletişim Bilgileri
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="admin" asp-controller="Team" asp-action="Index">
+                                Personeller
+                            </a>
+                        </li> 
+                    </ul>
+                </li>
+            </ul>
+        </div> 
+    </div> 
+</div>*@

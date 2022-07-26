@@ -1,0 +1,48 @@
+﻿@model FBE.Models.Email
+
+@{
+    ViewBag.Title = "İletişim";
+}
+<h2>Bize Ulaşın !</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken();
+
+<div class="from-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="alert alert-info">@TempData["Message"]</div>
+
+    <div class="from-group">
+        @Html.LabelFor(model => model.AdSoyad, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AdSoyad, new { htmlAttributes = new { @class = "from-control" } })
+            @Html.ValidationMessageFor(model => model.AdSoyad, "", new { @class = "test-danger" })
+        </div>
+    </div>
+    <div class="from-group">
+        @Html.LabelFor(model => model.Baslik, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Baslik, new { htmlAttributes = new { @class = "from-control" } })
+            @Html.ValidationMessageFor(model => model.Baslik, "", new { @class = "test-danger" })
+        </div>
+    </div>
+</div>
+    <div class="from-group">
+        @Html.LabelFor(model => model.Icerik, new { htmlAttributes = new { @class = "control-label col-md-2" } })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Icerik, new { htmlAttributes = new { @class = "from-control" } })
+            @Html.ValidationMessageFor(model => model.Icerik, "", new { @class = "test-danger" })
+        </div>
+    </div>
+    
+
+    <div class="from-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Gönder" class="btn btn-default" />
+        </div>
+    </div>
+}

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Slider>
+
+<div class="blog-posts">
+    <div class="post-image">
+        <div class="owl-carousel  owl-theme show-nav-hover dots-inside nav-inside nav-style-1 nav-light"
+             data-plugin-options="{'items': 1, 'margin': 10, 'autoplay':true , 'loop': true, 'nav': true, 'dots':false}">
+            @foreach (var sl in Model)
+            {
+                <a href="@sl.Link"><img class="img-fluid border-radius-0" style="height:390px" src=@sl.PhotoUrl alt="" /></a>
+            }
+        </div>
+    </div>
+</div>
